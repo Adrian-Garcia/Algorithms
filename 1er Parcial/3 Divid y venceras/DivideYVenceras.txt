@@ -1,0 +1,89 @@
+Divide y venceras
+	
+	Definición
+		Técnica para enfrentar solución de problemas
+		Técnica que me ayuda a diseñar algoritmos
+
+	¿En qué consiste?	
+		Consiste en dividir un problema en 2 o más instancias del problema más pequeñas, resolver (conquistar) esas instancias, y obtener la solución general del problema, combinando las soluciones de los problemas más pequeños.
+
+	Enfoque
+		Top-down
+
+	Solución natural
+		De tipo recursivo
+
+	Merge Sort
+
+		¿Es Every-case?
+			No, ya que "UNE" tiene comportamiento distinto dependiendo del caso
+
+		Análisis
+			Mejor caso		O(n log n)
+			Peor caso		O(n log n)
+
+	Quick Sort
+		
+		¿Es Every-case?
+			No, ya que la partción del arreglo es varía dependiendo del pivote
+
+		Análisis
+			Mejor caso		O(n log n)
+			Peor caso		O(n²)
+
+
+	Algoritmo de Strassen para multiplicar dos matrices
+		Reglas
+			Matrices del mismo tamaño
+			Columna de la primera sea igual a los renglones de la segunda 
+				3x4 	4x2		3x2		etc
+
+					0  X  X
+					X  X  X 
+					X  X  X
+
+			El análisis matemático de Strasesenm descubrió que para:			
+			c11 c12    =	a11 a12 	x 		b11 b12
+			c21 c22 		a21 a22 			b21 b22
+
+		Ventajas
+			La solucion en matrices 2x2 requiere de 
+				8 multiplicaciones y 4 sumas
+
+			Strassen requiere de 
+				7 multiplicaciones y 18 sumas/restas
+
+		Análisis
+			Caso promedio 		O(n² ⁸¹)
+
+	Aritmetica de enteros grandes
+		
+		Reglas
+			Utilizarse siempre que haya un entero de gran tamaño
+
+		¿Por qué debe usarse?
+			En el mejor caso, las operaciones tienen un orden Lineal
+			En el peor caso, las operaciones tienen un orden Cuadrático
+
+		Se usa para
+			Sumar 2 enteros grandes
+			Restar 2 enteros grandes
+			Multiplicar 2 enteros grandes
+			Dividir 2 enteros grandes
+
+		¿En qué consiste?	
+			Dividir el número en 2 números
+				8,234,127 = 8,234 x 10³ + 127
+
+			Así, se hacen 4 multiplicaciones con enteros más pequeños	
+
+	Condiciones para usar Divide y Vencerás
+		
+		Cuando SI
+			- Debe ser posible descomponer el problema en subproblemas
+			- Debe ser posible recomponer las soluciones de forma eficiente
+			- Los sub problemas deben ser, del mismo tamaño
+
+		Cuando NO
+			- Si el tamaño de los sub problemas, es del mismo tamaño que el original
+			- Si la cantidad de subproblemas es la misma que el tamaño del problema

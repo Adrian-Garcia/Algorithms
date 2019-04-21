@@ -1,0 +1,34 @@
+int height(TreeNode *r) {
+	
+	if (r == NULL)
+		return 0;
+
+	int izq = height(r->left);
+	int der = height(r->right);
+
+	return 1 + (izq > der ? izq : der);
+}
+
+int diameterOfBST(TreeNode *r) {
+	if (r != NULL) {
+		
+		int right, left;
+		int dRight, dLeft;
+		
+		left = height(r->left);
+		right = height(r->right);
+		
+		dLeft = diameterOfBST(r->left); 
+		dRight = diameterOfBST(r->right); 
+		  
+		int max = (dLeft > dRight) ? dLeft : dRight;
+
+		if (max > left+right) {
+			return max;
+		} 
+
+		else {
+			return left+right;
+		}
+	}
+}

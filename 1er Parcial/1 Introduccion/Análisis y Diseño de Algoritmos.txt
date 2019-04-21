@@ -1,0 +1,35 @@
+Análisis y Diseño de Algoritmos
+	
+	Ing Luis Humberto Gonzales
+		lhgonzalez@tec.mx
+		lhgonzalez@itesm.mx
+
+	Introducción
+	
+		¿Qué es un algoritmo?
+			Una serie de pasos (Procedimiento) que me ayuda a solucionar un problema o realizar un fin
+
+		¿Por qué se deben de analizar?
+			Para conocer pros, cons y decidir cual utilizar segun el caso y problema
+			Medir la eficiencia en cuanto uso de memoria y tiempo de ejecución
+
+		¿Cómo se diseñan los algoritmos? 
+			Existen varias técnicas o estrategias que ayudan a atacar ciertos problemas
+
+		Formas de medir la eficiencia
+			- Tiempo de ejecución
+			- Uso de espacio de memoria
+
+	Políticas de evaluación
+
+		Nota final
+			2 parciales 		40%
+			Final 				25%
+			Tareas				10%
+			Proyectos 			20%
+			Reto Semestral		 5%
+				10 puntos extras
+
+		Calificación Examenes
+			Práctico 			40%
+			Teórico				60%

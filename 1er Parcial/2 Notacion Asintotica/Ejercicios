@@ -1,0 +1,62 @@
+1)
+	int acum = 0;					o(1)
+	for (int i=4; i<n; i+=3) {		O(n)
+		acum+=i;					O(1)		|O(n)|
+	}
+	return acum						O(1)
+_______________________________________
+
+	int acum = 0	
+	for (int i=n; i>5; i--) {					|O(n)|
+		acum++;
+	}
+	return acum
+
+2) 
+	int acum = 0;					O(1)
+	for (int i=1; i<n; i*=2) {		O(log2n)	|O(log2n)|
+		acum++;						O(1)
+	}	
+	return acum; 					O(1)
+_______________________________________
+
+	int acum = 0;					
+	for (int i=n; i>5; i/=2) { 					|O(log2n)|
+		acum++;
+	}
+	return acum
+
+3) 
+	int acum = 0;
+	for (int i=4; i<n/i; i+=2) {	O(n)
+		for (int j=n; j>0; j/=2) {	O(log2n)	|O(log2n)|			
+			acum++;					O(1)
+		}
+	}	
+	return acum;
+
+4)
+	int acum = 0;
+	for (int i=8; i>0; i--) {
+		acum++;
+	}	
+	return acum;
+
+5) 
+	int acum = 0;
+	if (n%2 == 0) {
+		for (int i=1; i<n; i+=3) {
+			acum++;
+		}
+		for (int i=n; i>0; i/=3) {
+			acum++;
+		}
+	} 
+	
+	else {
+		for (int (int i=2; i<=n; i*=2)) {
+			acum++;
+		}
+	}
+
+	return acum;

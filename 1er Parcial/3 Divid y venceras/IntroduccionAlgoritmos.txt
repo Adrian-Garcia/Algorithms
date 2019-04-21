@@ -1,0 +1,42 @@
+Introducción al Análisis de Algoritmos 
+	
+	Definición de algoritmo 
+		Conjunto ordenado y finito de operaciones que permite encontrar la solución a un problema
+
+		Puede expresarse en términos de un lenguaje de porgramación, para obtener un programa que resuelve el problema por medio de la computadora
+
+	¿Cómo comparar algoritmos?
+		
+		Eficiencia
+			Tiempo de ejecución
+			Uso de espacios en memoria
+
+	El tiempo de ejecución depende de 
+		1. Entrada
+			Tamaño
+			Caracteristicas
+
+		2. Calidad de código
+
+		3. Rápidez de instrucciones
+
+		4. Complejidad de tiempo 
+
+		5. Cantidad de instrucciones básicas (o elementales)			
+
+	Notación Asintótica
+		
+		Definición
+			Propuesta de notación aceptada por comunidad cientifica para describir comportamiento en eficiencia (o complejidad) de un algoritmo	
+
+		¿Qué hace?
+			Describe en forma sintética el comportamiendo de la función con su entrada. Determina numero de operaciones realizadas
+
+		Complejidades
+			
+			Complejidad Temporal (y Espacial)	
+				Tiempo o espacio requerido por un algoritmo expresado con base en una función que depende del tamaño del problema
+
+			Complejidad Temporal Asintótica (y Espacial)
+				Comportamiento límite conforme el tamaño del problema se incrementa. Determina el tamaño del problema que puede ser resuelto por un algoritmo
+
