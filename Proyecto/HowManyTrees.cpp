@@ -17,44 +17,36 @@ Sample Input:
 Sample Output:
 5 BTrees
 */
-#include <iostream>
-#include <iomanip>
 
+//opcion 1: Rec (no apta la vdd)
+
+#include <iostream>
 using namespace std;
 
-double factorial(double n) {
-
-	double res = 1;
-	for (int i=1; i<=n; i++) {
-		res*=i;	
-	}
-
-	return res;
-}
-
-double howManyTrees(double n) {
-
-	double doubleN = 2*n;
-	double up = factorial(doubleN);
-	double down = factorial(n+1)*factorial(n);
-	
-	// cout << up << endl;
-	// cout << down << endl << endl;
-
-	int result = (up / down);
-
-	return result;
+long int numTreesREC(int start, int end){
+    
+    if(start == end) 
+        return 1;
+    
+    if(start > end) 
+        return 1;
+    
+    int res = 0;
+    
+    for(int i=start; i<=end; i++){
+        res += numTreesREC(start, i-1) * numTreesREC(i+1, end);
+    } 
+    
+    return res;
 }
 
 int main() {
+	
+    int n = 19;
 
-	double n = 19;
+    cin >> n;
+    cout << numTreesREC(1, n) << endl;
 
-	cin >> n;	
-
-	cout << fixed;
-	cout << setprecision(0) << howManyTrees(n) << " BTrees" << endl;
-
-	// Termina programa
-	return 0;
+    // Termina programa
+    return 0;
 }
