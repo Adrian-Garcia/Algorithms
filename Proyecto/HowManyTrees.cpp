@@ -1,12 +1,12 @@
 /*
 Description:
-Dado n (nÃºmero de nodos), se desea saber cuantos Ã¡rboles binarios se pueden formar con ellos.
+Dado n (número de nodos), se desea saber cuantos árboles binarios se pueden formar con ellos.
 
 Input:
-    LLega en una lÃ­nea n ( 1 <= n <= 30), cantidad de nodos
+    Llega en una línea n ( 1 <= n <= 30), cantidad de nodos
 
 Output:
-    En una lÃ­nea con la cantidad de arboles binarios
+    En una línea con la cantidad de arboles binarios
 
 Sample Input:
     3
@@ -17,18 +17,18 @@ Sample Output:
 #include <iostream>
 using namespace std;
 
-long int numTreesREC(int start, int end){
+long int howManyTrees(int start, int end){
     
+  	int res = 0;
+  
     if(start == end) 
         return 1;
     
     else if(start > end) 
         return 1;
     
-    int res = 0;
-    
     for(int i=start; i<=end; i++){
-        res += numTreesREC(start, i-1) * numTreesREC(i+1, end);
+        res += howManyTrees(start, i-1) * howManyTrees(i+1, end);
     } 
     
     return res;
@@ -36,11 +36,12 @@ long int numTreesREC(int start, int end){
 
 int main() {
 	
-    int n = 19;
+    int n = 3;
 
     cin >> n;
-    cout << numTreesREC(1, n) << endl;
+    cout << howManyTrees(1, n) << " BTrees" << endl;
 
     // Termina programa
     return 0;
 }
+
