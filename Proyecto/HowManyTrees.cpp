@@ -21,20 +21,6 @@ Sample Output:
 
 using namespace std;
 
-<<<<<<< HEAD
-long int howManyTrees(int n) {
-    
-    int res = 0;
-  
-    if(!n) 
-        return 1;
-    
-    for (int i=0; i<n; i++) {
-        res += howManyTrees(i)*howManyTrees(n-i-1);
-    }
-    
-    return res;
-=======
 double howManyTrees(int n) {
     
     // Almacena valores de combinaciones pasadas    
@@ -53,21 +39,15 @@ double howManyTrees(int n) {
 
     // Regresamos ultimo valor del vector
     return v[n];
->>>>>>> dev
 }
 
 int main() {
     
     int n = 30;
-
-<<<<<<< HEAD
-    // cin >> n;
-    cout << howManyTrees(n) << " BTrees" << endl;
-=======
+    
     cin >> n;
     cout << fixed;
     cout << setprecision(0) << howManyTrees(n) << " BTrees" << endl;
->>>>>>> dev
 
     // Termina programa
     return 0;
