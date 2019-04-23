@@ -15,8 +15,13 @@ Sample Output:
     5 BTrees
 */
 #include <iostream>
+#include <vector>
+#include <iomanip>
+#include <algorithm>
+
 using namespace std;
 
+<<<<<<< HEAD
 long int howManyTrees(int n) {
     
     int res = 0;
@@ -29,14 +34,40 @@ long int howManyTrees(int n) {
     }
     
     return res;
+=======
+double howManyTrees(int n) {
+    
+    // Almacena valores de combinaciones pasadas    
+    std::vector<double> v(n,0);
+    v.insert(v.begin(), 1);
+
+    for (int i=1; i<=n; i++) {
+        for (int j=1; j<=i; j++) {
+            v[i] += v[i-j]*v[j-1];
+        }
+    }
+
+    // for (int i=0; i<v.size(); i++) {
+    //     cout << setprecision(0) << v[i] << endl; 
+    // } cout << endl;
+
+    // Regresamos ultimo valor del vector
+    return v[n];
+>>>>>>> dev
 }
 
 int main() {
     
     int n = 30;
 
+<<<<<<< HEAD
     // cin >> n;
     cout << howManyTrees(n) << " BTrees" << endl;
+=======
+    cin >> n;
+    cout << fixed;
+    cout << setprecision(0) << howManyTrees(n) << " BTrees" << endl;
+>>>>>>> dev
 
     // Termina programa
     return 0;
