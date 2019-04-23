@@ -42,10 +42,21 @@ Sample Output:
 	Median case 2: 3.50
 */
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
 double median(int arr1[], int arr2[], int n) {
+
+	if (n <= 0) 
+		return -1; 
+	
+	if (n == 1) 
+		return (arr1[0] + 
+				arr2[0]) / 2; 
+	if (n == 2) 
+		return (max(arr1[0], arr2[0]) + 
+				min(arr1[1], arr2[1])) / 2;
 
 	int medianArr1 = (n%2==0) ? 
 		(arr1[n/2]+arr1[n/2-1])/2:
@@ -96,7 +107,7 @@ int main() {
 			cin >> arr2[i];
 		}
 
-		cout << "Median case " << j+1 << ": " << median(arr1, arr2, n) << endl;
+		cout << "Median case " << j+1 << ": " << setprecision(2) << median(arr1, arr2, n) << endl;
 	}
 
 	// Termina programa
