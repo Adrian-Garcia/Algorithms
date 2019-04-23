@@ -17,31 +17,28 @@ Sample Output:
 #include <iostream>
 using namespace std;
 
-long int howManyTrees(int start, int end){
+long int howManyTrees(int n) {
     
-  	int res = 0;
+    int res = 0;
   
-    if(start == end) 
+    if(!n) 
         return 1;
     
-    else if(start > end) 
-        return 1;
-    
-    for(int i=start; i<=end; i++){
-        res += howManyTrees(start, i-1) * howManyTrees(i+1, end);
-    } 
+    for (int i=0; i<n; i++) {
+        res += howManyTrees(i)*howManyTrees(n-i-1);
+    }
     
     return res;
 }
 
 int main() {
-	
-    int n = 3;
+    
+    int n = 30;
 
-    cin >> n;
-    cout << howManyTrees(1, n) << " BTrees" << endl;
+    // cin >> n;
+    cout << howManyTrees(n) << " BTrees" << endl;
 
     // Termina programa
     return 0;
 }
-
+ 
