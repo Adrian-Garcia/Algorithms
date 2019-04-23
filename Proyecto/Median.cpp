@@ -45,30 +45,33 @@ Sample Output:
 
 using namespace std;
 
-double median(int array1[], int array2[], int n) {
+double median(int arr1[], int arr2[], int n) {
 
-	// Resultado final
-	int res;
+	int medianArr1 = (n%2==0) ? 
+		(arr1[n/2]+arr1[n/2-1])/2:
+		arr1[n/2];
 
-	// Indices
-	int min = 0;
-	int max = n;
+	int medianArr2 = (n%2==0) ? 
+		(arr2[n/2]+arr2[n/2-1])/2:
+		arr2[n/2];	
 
-	// Busqueda Binaria
-	while (min <= max) {
-	
-		int i = (max + min) / 2; 
-		int j = (2*n+1)/2 - i;
-		
-		if (i<n &&) {
-
-		}
-
+	if (medianArr1 < medianArr2) {
+		return (n%2) ?
+			median(arr1+n/2-1, arr2, n-(n/2)+1):
+			median(arr1+n/2, arr2, n-(n/2));
 	}
 
-	// Regresamos media
-	return res;
+	else if (medianArr1 == medianArr2) {
+		return medianArr1;
+	}
 
+	if (n%2 == 0) {
+		return median(arr2+n/2-1, arr1, n-(n/2)+1);
+	}
+
+	else {
+		return median(arr2+n/2-1, arr1, n-(n/2));
+	}	
 }
 
 int main() {
@@ -82,18 +85,18 @@ int main() {
 		
 		cin >> n;
 
-		int array1[n];
-		int array2[n];
+		int arr1[n];
+		int arr2[n];
 
 		for (int i=0; i<n; i++) {
-			cin >> array1[i];
+			cin >> arr1[i];
 		}
 
 		for (int i=0; i<n; i++) {
-			cin >> array2[i];
+			cin >> arr2[i];
 		}
 
-		cout << "Median case " << j+1 << ": " << median(array1, array2, n) << endl;
+		cout << "Median case " << j+1 << ": " << median(arr1, arr2, n) << endl;
 	}
 
 	// Termina programa
