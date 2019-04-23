@@ -52,28 +52,25 @@ double median(int arr1[], int arr2[], int n) {
 		return -1; 
 	
 	if (n == 1) 
-		return (arr1[0] + 
-				arr2[0]) / 2; 
+		return (arr1[0] + arr2[0]) / 2; 
+
 	if (n == 2) 
-		return (max(arr1[0], arr2[0]) + 
-				min(arr1[1], arr2[1])) / 2;
+		return (min(arr1[1], arr2[1]) + max(arr1[0], arr2[0])) / 2;
 
 	int medianArr1 = (n%2==0) ? 
-		(arr1[n/2]+arr1[n/2-1])/2:
-		arr1[n/2];
+		(arr1[n/2]+arr1[n/2-1])/2 : arr1[n/2];
 
 	int medianArr2 = (n%2==0) ? 
-		(arr2[n/2]+arr2[n/2-1])/2:
-		arr2[n/2];	
-
-	if (medianArr1 < medianArr2) {
-		return (n%2) ?
-			median(arr1+n/2-1, arr2, n-(n/2)+1):
-			median(arr1+n/2, arr2, n-(n/2));
+		(arr2[n/2]+arr2[n/2-1])/2 : arr2[n/2];	
+	
+	if (medianArr1 == medianArr2) {
+		return medianArr1;
 	}
 
-	else if (medianArr1 == medianArr2) {
-		return medianArr1;
+	if (medianArr1 < medianArr2) {
+		return (n%2 == 0) ?
+			median(arr1+n/2-1, arr2, n-(n/2)+1):
+			median(arr1+n/2, arr2, n-(n/2));
 	}
 
 	if (n%2 == 0) {
@@ -81,7 +78,7 @@ double median(int arr1[], int arr2[], int n) {
 	}
 
 	else {
-		return median(arr2+n/2-1, arr1, n-(n/2));
+		return median(arr2+n/2, arr1, n-(n/2));
 	}	
 }
 

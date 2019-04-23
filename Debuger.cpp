@@ -1,63 +1,81 @@
-/* Dynamic Programming C/C++ implementation of LCS problem */
-#include <iostream>
 #include<bits/stdc++.h> 
-   
-using namespace std;
+using namespace std; 
 
-int max(int a, int b); 
-   
-/* Returns length of LCS for X[0..m-1], Y[0..n-1] */
-int lcs( char *X, char *Y, int m, int n ) 
-{ 
-   int L[m+1][n+1]; 
-   int i, j; 
-   
-   /* Following steps build L[m+1][n+1] in bottom up fashion. Note  
-      that L[i][j] contains length of LCS of X[0..i-1] and Y[0..j-1] */
-   for (i=0; i<=m; i++) 
-   { 
-     for (j=0; j<=n; j++) 
-     { 
-       if (i == 0 || j == 0) 
-         L[i][j] = 0; 
-   
-       else if (X[i-1] == Y[j-1]) 
-         L[i][j] = L[i-1][j-1] + 1; 
-   
-       else
-        L[i][j] = max(L[i-1][j], L[i][j-1]); 
-     } 
-   } 
+int median(int [], int); 
 
-   	for (int i=0; i<m+1; i++) {
-   		for (int j=0; j<n+1; j++) {
-   			cout << L[i][j] << "\t";
-   		}
-   		cout << endl;
-   }
+int getMedian(int ar1[], int ar2[], int n) { 
+  
+  if (n <= 0) 
+    return -1; 
+  
+  if (n == 1) 
+    return (ar1[0] + 
+        ar2[0]) / 2; 
+  if (n == 2) 
+    return (max(ar1[0], ar2[0]) + 
+        min(ar1[1], ar2[1])) / 2; 
 
-   /* L[m][n] contains length of LCS for X[0..n-1] and Y[0..m-1] */
-   return L[m][n]; 
-   
+  int m1 = median(ar1, n); 
+  
+  int m2 = median(ar2, n); 
+
+  if (m1 == m2) 
+    return m1; 
+
+  if (m1 < m2) { 
+    if (n % 2 == 0) 
+      return getMedian(ar1 + n / 2 - 1, 
+              ar2, n - n / 2 + 1); 
+    return getMedian(ar1 + n / 2, 
+            ar2, n - n / 2); 
+  } 
+
+  if (n % 2 == 0) 
+    return getMedian(ar2 + n / 2 - 1, 
+            ar1, n - n / 2 + 1); 
+  return getMedian(ar2 + n / 2, 
+          ar1, n - n / 2); 
 } 
-   
-/* Utility function to get max of 2 integers */
-int max(int a, int b) 
+
+int median(int arr[], int n) 
 { 
-    return (a > b)? a : b; 
+  if (n % 2 == 0) 
+    return (arr[n / 2] + 
+        arr[n / 2 - 1]) / 2; 
+  else
+    return arr[n / 2]; 
 } 
-   
-/* Driver program to test above function */
+
 int main() 
 { 
-  char X[] = "XMJYAUZ"; 
-  char Y[] = "MZJAWXU"; 
-   
-  int m = strlen(X); 
-  int n = strlen(Y); 
-   
-  printf("Length of LCS is %d", lcs( X, Y, m, n ) ); 
-  printf("\n");
-  
+
+	/*
+1
+4
+7
+8
+10
+
+2
+9
+11
+14
+15	*/
+	
+  int ar1[] = {1, 4, 7, 8, 10}; 
+  int ar2[] = {2, 9, 11, 14, 15}; 
+  int n1 = sizeof(ar1) / 
+      sizeof(ar1[0]); 
+  int n2 = sizeof(ar2) / 
+      sizeof(ar2[0]); 
+  if (n1 == n2) 
+    cout << "Median is "
+      << getMedian(ar1, ar2, n1); 
+  else
+    cout << "Doesn't work for arrays "
+      << "of unequal size"; 
   return 0; 
 } 
+
+// This code is contributed 
+// by Shivi_Aggarwal 
