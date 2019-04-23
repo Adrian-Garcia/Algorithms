@@ -46,15 +46,15 @@ Sample Output:
 
 using namespace std;
 
-double median(int arr1[], int arr2[], int n) {
+double median(double arr1[], double arr2[], int n) {
 
-	if (n <= 0) 
-		return -1; 
+	if (n<=0) 
+		return 0; 
 	
-	if (n == 1) 
+	if (n==1) 
 		return (arr1[0] + arr2[0]) / 2; 
 
-	if (n == 2) 
+	if (n==2) 
 		return (min(arr1[1], arr2[1]) + max(arr1[0], arr2[0])) / 2;
 
 	int medianArr1 = (n%2==0) ? 
@@ -63,17 +63,18 @@ double median(int arr1[], int arr2[], int n) {
 	int medianArr2 = (n%2==0) ? 
 		(arr2[n/2]+arr2[n/2-1])/2 : arr2[n/2];	
 	
-	if (medianArr1 == medianArr2) {
-		return medianArr1;
-	}
-
 	if (medianArr1 < medianArr2) {
-		return (n%2 == 0) ?
+		
+		return (!n%2) ?
 			median(arr1+n/2-1, arr2, n-(n/2)+1):
 			median(arr1+n/2, arr2, n-(n/2));
 	}
+	
+	else if (medianArr1 == medianArr2) {
+		return medianArr1;
+	}
 
-	if (n%2 == 0) {
+	if (!n%2) {
 		return median(arr2+n/2-1, arr1, n-(n/2)+1);
 	}
 
@@ -93,8 +94,8 @@ int main() {
 		
 		cin >> n;
 
-		int arr1[n];
-		int arr2[n];
+		double arr1[n];
+		double arr2[n];
 
 		for (int i=0; i<n; i++) {
 			cin >> arr1[i];
@@ -104,7 +105,8 @@ int main() {
 			cin >> arr2[i];
 		}
 
-		cout << "Median case " << j+1 << ": " << setprecision(2) << median(arr1, arr2, n) << endl;
+		cout << std::fixed << std::showpoint;
+		cout << "Median case " << j+1 << ": " << std::setprecision(2) << median(arr1, arr2, n) << endl;
 	}
 
 	// Termina programa
