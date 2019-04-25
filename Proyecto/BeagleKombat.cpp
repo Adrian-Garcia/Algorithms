@@ -24,6 +24,8 @@ Sample Output:
 */
 #include <iostream>
 #include <string>
+#include <queue>
+#include <vector>
 
 using namespace std;
 
@@ -32,26 +34,52 @@ int kombat(int n, int k, int damage[], string buttons) {
 	int res = 0;
 	int counter = 0;
 	char last = '@';
+	priority_queue<int, vector<int>, greater<int> > hits;
 
 	for (int i=0; i<n; i++) {
 		
-		// Cambio de letra
+		// Diferent letter
 		if (buttons[i] != last) {
+			
 			last = buttons[i];
 			counter = 0;
-			res += damage[i];
+			
+			// Add previous hits
+			while (!hits.empty()) {
+				res += hits.top();
+				hits.pop();
+			}
+
+			// add that leter to the queue
+			hits.push(damage[i]);
 		}
 
+		// Same letter, less repetitive than k
 		else if (counter < k) {
+			
+			// Added to the sum hits
+			hits.push(damage[i]);
 			counter++;
-			res += damage[i];
 		}
 
+		// Same letter, appear more than k
 		else {
+
+			// Added to hits if the current value is bigger than the las one
+			if (hits.top() < damage[i]) {
+				hits.pop();
+				hits.push(damage[i]);
+			}
 			counter++;
 		}
 	}
 	
+	// Add last hits
+	while (!hits.empty()) {
+		res += hits.top();
+		hits.pop();
+	}
+
 	return res;
 }
 
@@ -70,7 +98,7 @@ int main() {
 	// 	cin >> damage[i];
 	// }
 
-//	cin >> buttons;
+	// cin >> buttons;
 		
 	cout << kombat(n, k, damage, buttons) << endl;
 
