@@ -42,7 +42,7 @@ int kombat(int n, int k, int damage[], string buttons) {
 		if (buttons[i] != last) {
 			
 			last = buttons[i];
-			counter = 0;
+			counter = 1;
 			
 			// Add previous hits
 			while (!hits.empty()) {
@@ -90,15 +90,15 @@ int main() {
 	string buttons;			// Button Sequence
 	buttons = "baaaaca";
 
-	// cin >> n >> k;
+	cin >> n >> k;
 
 	int damage[n] = {1, 5, 16, 18, 7, 2, 10};
 
-	// for (int i=0; i<n; i++) {
-	// 	cin >> damage[i];
-	// }
+	for (int i=0; i<n; i++) {
+		cin >> damage[i];
+	}
 
-	// cin >> buttons;
+	cin >> buttons;
 		
 	cout << kombat(n, k, damage, buttons) << endl;
 
