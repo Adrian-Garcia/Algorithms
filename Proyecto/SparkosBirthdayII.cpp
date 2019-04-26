@@ -42,7 +42,7 @@ int main() {
 
 	int u, v, w;
 
-	// cin >> N >> M;
+	cin >> N >> M;
 	
 	vector<vector<pair<int, int> > > G(20);
 	vector<int> Dist;
