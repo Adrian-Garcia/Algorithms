@@ -101,7 +101,7 @@ int main() {
         cin >> N >> M;
 
         for(int i=0;i<M;++i){
-            
+
             cin >> u >> v >> w;
 
             pair<int,int> n1(v-65, w);
