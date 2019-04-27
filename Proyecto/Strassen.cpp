@@ -1,10 +1,10 @@
 /*
 Description
-Given two squared matrices A and B, execute the multiply A x B with the algorithm of:
-	• Traditional
-	• Strassen
+	Given two squared matrices A and B, execute the multiply A x B with the algorithm of:
+		• Traditional
+		• Strassen
 
-Display the number of scalar multiplications.
+	Display the number of scalar multiplications.
 
 Input
 	First comes n (4 <= n <=128) the dimension of the squared matrices, and then comes n
@@ -27,12 +27,12 @@ Sample Input
 	0 0 0 1
 
 Sample Output.
+	Traditional Scalar Multiplications: 64
+	Strassen Scalar Multiplications: 56 
 */
 #include <iostream>
 
 using namespace std;
-
-
 
 int traditional(int n, int matA[20][20], int matB[20][20]) {
 	
@@ -41,8 +41,10 @@ int traditional(int n, int matA[20][20], int matB[20][20]) {
 	return multiplications;
 }
 
-int strassen(int n, int mat[20][20], int matB[20][20]){
+int strassen(int n, int matA[20][20], int matB[20][20]){
+	
 	int multiplications = 0;
+	int matC[20][20] = {0};
 
 	return multiplications;
 }
@@ -55,14 +57,14 @@ int main() {
 	
 	cin >> n;	
 
-	// Ask matrix A
+	// Ask for matrix A
 	for (int i=0; i<n; i++) {
 		for (int j=0; j<n; j++) {
 			cin >> matA[i][j];
 		}
 	}
 
-	// Ask matrix B
+	// Ask for matrix B
 	for (int i=0; i<n; i++) {
 		for (int j=0; j<n; j++) {
 			cin >> matB[i][j];
