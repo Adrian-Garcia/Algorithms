@@ -58,7 +58,7 @@ int main() {
         G[v-65].push_back(n2);
 	}
 
-	traveler(N, M, Dist, G);
+	// traveler(N, M, Dist, G);
 
 	return 0;
 }
