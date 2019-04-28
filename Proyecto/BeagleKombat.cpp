@@ -85,14 +85,13 @@ int kombat(int n, int k, int damage[], string buttons) {
 
 int main() {
 
-	int n = 7;				// Length of hit button sequence
-	int k = 3;				// Max num imputs
+	int n;					// Length of hit button sequence
+	int k;					// Max num imputs
 	string buttons;			// Button Sequence
-	buttons = "baaaaca";
 
 	cin >> n >> k;
 
-	int damage[n] = {1, 5, 16, 18, 7, 2, 10};
+	int damage[n];
 
 	for (int i=0; i<n; i++) {
 		cin >> damage[i];
