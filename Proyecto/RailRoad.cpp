@@ -43,62 +43,99 @@ Sample Output
 	not possible
 */
 #include <iostream>
+#include <limits.h>
+#include <algorithm>
 
 using namespace std;
 
-bool sort(int N1, int N2, int train1[], int train2[], int order[]) {
-	
-	bool flag = true;
-	bool checker[N1+1][N2+1];
+int max(int a, int b) {
+	return (a > b) ? a : b;
+}
 
-	for (int i=0; i<N1 && flag; i++) {
-		for (int j=0; j<N2 && flag; j++) {
-			
-			//Revisamos que sea posible tener la secuencia dada en cierta posicion
-			if () {
-				
-			}
+bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
+	
+	bool flag = true;			// To validate
+	int maximum = INT_MIN;		// To check size of mat
+	int minimum = INT_MAX;		// To check size of mat
+	int i, j, val;				// indexes and values
+
+	// Look for maximum and minimum values of the trains
+	for (i=0; i<N1; i++) {
+		maximum = max(train1[i], maximum);
+		minimum = min(train1[i], maximum);
+	} for (i=N1-1; i<N2; i++) {
+		maximum = max(train2[i], maximum);
+		minimum = min(train2[i], maximum);
+	}
+
+	// Boolean matrix to locate posible locations
+	bool mat[maximum+1][N1+N2+1] = {0};
+
+	// Change values of posible positions of trains
+	for (i=0; i<N1; i++) {
+
+		val = train1[i];
+		// Validate positions at matrix
+		for (j=i; j<N2; j++) {
+			mat[val][i] = true;
+		}
+	} for (i=0; i<N2; i++) {
+
+		val = train2[i];
+		// Validate positions at matrix
+		for (j=i; j<N1; j++) {
+			mat[val][i] = true;
 		}
 	}
 
+
+	for (i=0; i<N1+N2+1; i++) {
+		for (j=0; j<maximum+1; j++) {
+			cout << mat[i][j] << "\t"; 
+		}
+		cout << endl;
+	}
+
+	// Return value of flag
 	return flag;
 }
 
 int main() {
 
-	int cases; 			// Casos
-	int N1, N2;			// Numero de vagones
+	int cases; 			// Cases 
+	int N1 = 3; 		// Size of train 1
+	int N2 = 4;			// Size of train 2
 
-	cin >> N1 >> N2;
+	// cin >> N1 >> N2;
 
-	while (!N1 && !N2)	{
+	// while (!N1 && !N2)	{
 
-		int train1[N1];
-		int train2[N2];
-		int order[N1+N2];
+		int train1[N1] = {1, 3, 1};
+		int train2[N2] = {1, 1, 2};
+		int order[N1+N2] = {1, 1, 2, 3, 1, 1};
 
 		// Ask for train i
-		for (int i=0; i<N1; i++) {
-			cin >> train1[i];
-		}
+		// for (int i=0; i<N1; i++) {
+		// 	cin >> train1[i];
+		// }
 
-		// Ask for train 2
-		for (int i=0; i<N2; i++) {
-			cin >> train2[i];
-		}
+		// // Ask for train 2
+		// for (int i=0; i<N2; i++) {
+		// 	cin >> train2[i];
+		// }
 
-		// Ask for order
-		for (int i=0; i<N1+N2; i++) {
-			cin >> order[i];
-		}
+		// // Ask for order
+		// for (int i=0; i<N1+N2; i++) {
+		// 	cin >> order[i];
+		// }
 
-		sort(train1, train2, order) ? 
+		validate(N1, N2, train1, train2, order) ? 
 			cout << "possible" << endl:
 			cout << "not possible" << endl;
 
 		// Ask new size of trains
-		cin >> N1 >> N2;
-	}
+		// cin >> N1 >> N2;
+	// }
 
 	// End program
 	return 0;
