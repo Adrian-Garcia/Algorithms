@@ -69,31 +69,40 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	}
 
 	// Boolean matrix to locate posible locations
-	bool mat[maximum+1][N1+N2+1] = {false};
+	// bool mat[maximum+1][N1+N2+1] = {false};
+	bool mat[3][7] = {false};
+
 
 	// Change values of posible positions of trains
-	for (i=0; i<N1; i++) {
+	// for (i=0; i<N1; i++) {
 
-		val = train1[i];
-		// Validate positions at matrix
-		for (j=i; j<N2; j++) {
-			mat[val][i] = true;
-		}
-	} for (i=0; i<N2; i++) {
+	// 	val = train1[i];
+	// 	// Validate positions at matrix
+	// 	for (j=i; j<N2; j++) {
+	// 		mat[val][i] = true;
+	// 	}
+	// } for (i=0; i<N2; i++) {
 
-		val = train2[i];
-		// Validate positions at matrix
-		for (j=i; j<N1; j++) {
-			mat[val][i] = true;
-		}
-	}
+	// 	val = train2[i];
+	// 	// Validate positions at matrix
+	// 	for (j=i; j<N1; j++) {
+	// 		mat[val][i] = true;
+	// 	}
+	// }
 
-	for (i=0; i<N1+N2+1; i++) {
-		for (j=0; j<maximum+1; j++) {
+	for (i=0; i<7; i++) {
+		for (j=0; j<3; j++) {
 			cout << mat[i][j] << "\t"; 
 		}
 		cout << endl;
 	}
+
+	// for (i=0; i<N1+N2+1; i++) {
+	// 	for (j=0; j<maximum+1; j++) {
+	// 		cout << mat[i][j] << "\t"; 
+	// 	}
+	// 	cout << endl;
+	// }
 
 	// Return value of flag
 	return flag;
