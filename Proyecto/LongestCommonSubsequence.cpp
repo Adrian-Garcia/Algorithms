@@ -58,6 +58,15 @@ int findLCS(string a, string b) {
 				Mat[i][j] = max(Mat[i][j-1], Mat[i-1][j]);
 		}
 	}
+	
+	for (int i=0; i<=aSize; i++) {
+		
+		for (int j=0; j<=bSize; j++) {
+			
+			cout << Mat[i][j] << " ";
+		}
+		cout << endl;
+	}
 
 	// Regresamos ultimo valor de la matriz
 	return Mat[aSize][bSize];

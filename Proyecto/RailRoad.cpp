@@ -63,13 +63,13 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	for (i=0; i<N1; i++) {
 		maximum = max(train1[i], maximum);
 		minimum = min(train1[i], maximum);
-	} for (i=N1-1; i<N2; i++) {
+	} for (i=0; i<N2; i++) {
 		maximum = max(train2[i], maximum);
 		minimum = min(train2[i], maximum);
 	}
 
 	// Boolean matrix to locate posible locations
-	bool mat[maximum+1][N1+N2+1] = {0};
+	bool mat[maximum+1][N1+N2+1] = {false};
 
 	// Change values of posible positions of trains
 	for (i=0; i<N1; i++) {
@@ -87,7 +87,6 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 			mat[val][i] = true;
 		}
 	}
-
 
 	for (i=0; i<N1+N2+1; i++) {
 		for (j=0; j<maximum+1; j++) {
