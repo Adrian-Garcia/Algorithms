@@ -57,7 +57,7 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	bool flag = true;			// To validate
 	int maximum = INT_MIN;		// To check size of mat
 	int minimum = INT_MAX;		// To check size of mat
-	int i, j, val;				// indexes and values
+	int i, j;					// indexes and values
 
 	// Look for maximum and minimum values of the trains
 	for (i=0; i<N1; i++) {
@@ -69,40 +69,49 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	}
 
 	// Boolean matrix to locate posible locations
-	// bool mat[maximum+1][N1+N2+1] = {false};
-	bool mat[3][7] = {false};
-
-
+	bool mat[maximum+1][N1+N2+1] = {false};
+	int numbers[maximum+1] = {0};
+	
 	// Change values of posible positions of trains
-	// for (i=0; i<N1; i++) {
+	for (i=0; i<N1; i++) {
+	
+		// Add one to the counter of the element
+		numbers[train1[i]]++;
 
-	// 	val = train1[i];
-	// 	// Validate positions at matrix
-	// 	for (j=i; j<N2; j++) {
-	// 		mat[val][i] = true;
-	// 	}
-	// } for (i=0; i<N2; i++) {
+		// Validate positions at matrix
+		for (j=i; j<N2; j++) {
 
-	// 	val = train2[i];
-	// 	// Validate positions at matrix
-	// 	for (j=i; j<N1; j++) {
-	// 		mat[val][i] = true;
-	// 	}
-	// }
+			// Validate that matrix have not finished
+			if (j<N1+N2+1) {
+				mat[train1[i]][j] = true;
+			}
+		}
+	} for (i=0; i<N2; i++) {
 
-	for (i=0; i<7; i++) {
-		for (j=0; j<3; j++) {
+		// Add one to the counter of the element
+		numbers[train2[i]]++;
+	
+		// Validate positions at matrix
+		for (j=i; j<N1; j++) {
+			
+			// Validate that matrix have not finished
+			if (j<N1+N2+1) {
+				mat[train1[i]][j] = true;
+			}
+		}
+	}
+
+	/*
+	for (i=0; i<maximum+1; i++) {
+		for (j=0; j<N1+N2+1; j++) {
 			cout << mat[i][j] << "\t"; 
 		}
 		cout << endl;
-	}
+	} */
 
-	// for (i=0; i<N1+N2+1; i++) {
-	// 	for (j=0; j<maximum+1; j++) {
-	// 		cout << mat[i][j] << "\t"; 
-	// 	}
-	// 	cout << endl;
-	// }
+	for (int i=0; i<N1+N2 && flag; i++) {
+		flag = (mat[][]) ? true : false;
+	}
 
 	// Return value of flag
 	return flag;
