@@ -110,7 +110,8 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	} */
 
 	for (int i=0; i<N1+N2 && flag; i++) {
-		flag = (mat[][]) ? true : false;
+		numbers[i]--;
+		flag = (mat[order[i]][i] && numbers[i] >= 0) ? true : false;		
 	}
 
 	// Return value of flag
@@ -127,9 +128,9 @@ int main() {
 
 	// while (!N1 && !N2)	{
 
-		int train1[N1] = {1, 3, 1};
-		int train2[N2] = {1, 1, 2};
-		int order[N1+N2] = {1, 1, 2, 3, 1, 1};
+		int train1[N1] = {1, 1, 1};
+		int train2[N2] = {1, 1, 1};
+		int order[N1+N2] = {1, 1, 1, 1, 1, 1};
 
 		// Ask for train i
 		// for (int i=0; i<N1; i++) {
