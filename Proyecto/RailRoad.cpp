@@ -69,13 +69,14 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	}
 
 	cout << maximum << " " << minimum << endl;
+	cout << maximum+1 << " " << N1+N2+1 << endl << endl;
 
 	// Boolean matrix to locate posible locations
-	bool mat[maximum+1][N1+N2+1];
+	bool mat[N1+N2+1][maximum+1];
 	int numbers[maximum+1] = {0};
 	
-	for (i=0; i<maximum+1; i++) {
-		for (j=0; j<N1+N2+1; j++) {
+	for (i=0; i<N1+N2+1; i++) {
+		for (j=0; j<maximum+1; j++) {
 			mat[i][j] = false;
 			cout << mat[i][j] << " ";
 		} cout << endl;
@@ -135,7 +136,7 @@ int main() {
 
 	int cases; 			// Cases 
 	int N1 = 3; 		// Size of train 1
-	int N2 = 4;			// Size of train 2
+	int N2 = 3;			// Size of train 2
 
 	// cin >> N1 >> N2;
 
