@@ -72,10 +72,10 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	cout << maximum+1 << " " << N1+N2+1 << endl << endl;
 
 	// Boolean matrix to locate posible locations
-	bool mat[N1+N2+1][maximum+1];
+	bool mat[N1+N2][maximum+1];
 	int numbers[maximum+1] = {0};
 	
-	for (i=0; i<N1+N2+1; i++) {
+	for (i=0; i<N1+N2; i++) {
 		for (j=0; j<maximum+1; j++) {
 			mat[i][j] = false;
 			cout << mat[i][j] << " ";
@@ -115,13 +115,15 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		}
 	}
 
-	/*
+	for (i=0; i<N1+N2+1; i++) {
+		for (j=0; j<maximum+1; j++) {
+			cout << mat[i][j] << " ";
+		} cout << endl;
+	} cout << endl;
+	
 	for (i=0; i<maximum+1; i++) {
-		for (j=0; j<N1+N2+1; j++) {
-			cout << mat[i][j] << "\t"; 
-		}
-		cout << endl;
-	} */
+		cout << numbers[i] << " ";
+	} cout << endl << endl;
 
 	for (int i=0; i<N1+N2 && flag; i++) {
 		numbers[i]--;
