@@ -84,8 +84,6 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		// Add one to the counter of the element
 		numbers[train1[i]]++;
 
-		mat[i][train1[i]] = true;
-
 		// Validate positions at matrix
 		for (j=0; j<=N2; j++) {
 
@@ -101,8 +99,6 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		// Add one to the counter of the element
 		numbers[train2[i]]++;
 
-		mat[i][train2[i]] = true;
-
 		// Validate positions at matrix
 		for (j=0; j<=N1; j++) {
 
@@ -113,19 +109,24 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		}
 	}
 
-	for (i=0; i<N1+N2+1; i++) {
+	for (i=0; i<N1+N2; i++) {
 		for (j=0; j<maximum+1; j++) {
 			cout << mat[i][j] << " ";
 		} cout << endl;
 	} cout << endl;
-	
+
 	for (i=0; i<maximum+1; i++) {
 		cout << numbers[i] << " ";
 	} cout << endl << endl;
 
-	for (int i=0; i<N1+N2 && flag; i++) {
-		numbers[i]--;
-		flag = (mat[order[i]][i] && numbers[i] >= 0) ? true : false;		
+	for (int i=1; i<N1+N2 && flag; i++) {
+		
+		numbers[order[i]]--;
+
+		cout << i << ": " << numbers[i] << "\t"; 
+		cout << mat[i][order[i]] << " " << endl;
+
+		flag = (mat[i][order[i]] && numbers[i] >= 0) ? true : false;
 	}
 
 	// Return value of flag
@@ -144,7 +145,7 @@ int main() {
 
 		int train1[N1] = {1, 2, 3};
 		int train2[N2] = {3, 2, 1};
-		int order[N1+N2] = {3, 2, 1, 1, 2, 3};
+		int order[N1+N2] = {3, 2, 1, 1, 2, 3}; 
 
 		// Ask for train i
 		// for (int i=0; i<N1; i++) {
