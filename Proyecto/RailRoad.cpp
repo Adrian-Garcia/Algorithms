@@ -68,9 +68,6 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		minimum = min(train2[i], maximum);
 	}
 
-	cout << maximum << " " << minimum << endl;
-	cout << maximum+1 << " " << N1+N2+1 << endl << endl;
-
 	// Boolean matrix to locate posible locations
 	bool mat[N1+N2][maximum+1];
 	int numbers[maximum+1] = {0};
@@ -78,13 +75,8 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	for (i=0; i<N1+N2; i++) {
 		for (j=0; j<maximum+1; j++) {
 			mat[i][j] = false;
-			cout << mat[i][j] << " ";
-		} cout << endl;
-	} cout << endl;
-
-	for (i=0; i<maximum+1; i++) {
-		cout << numbers[i] << " ";
-	} cout << endl << endl;
+		}
+	}
 
 	// Change values of posible positions of trains
 	for (i=0; i<N1; i++) {
@@ -92,25 +84,31 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		// Add one to the counter of the element
 		numbers[train1[i]]++;
 
+		mat[i][train1[i]] = true;
+
 		// Validate positions at matrix
-		for (j=i; j<N2; j++) {
+		for (j=0; j<=N2; j++) {
 
 			// Validate that matrix have not finished
 			if (j<N1+N2+1) {
-				mat[train1[i]][j] = true;
+				mat[j+i][train1[i]] = true;
 			}
 		}
-	} for (i=0; i<N2; i++) {
+	} 
 
+	for (i=0; i<N2; i++) {
+	
 		// Add one to the counter of the element
 		numbers[train2[i]]++;
-	
+
+		mat[i][train2[i]] = true;
+
 		// Validate positions at matrix
-		for (j=i; j<N1; j++) {
-			
+		for (j=0; j<=N1; j++) {
+
 			// Validate that matrix have not finished
 			if (j<N1+N2+1) {
-				mat[train1[i]][j] = true;
+				mat[j+i][train2[i]] = true;
 			}
 		}
 	}
