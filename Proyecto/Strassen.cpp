@@ -69,6 +69,7 @@ void sum(int n, int matA[Z][Z], int matB[Z][Z], int matC[Z][Z]) {
 	}
 }
 
+// Sub for the matrix
 void sub(int n, int matA[Z][Z], int matB[Z][Z], int matC[Z][Z]) {
 
 	for (int i=0; i<n; i++) {
@@ -78,98 +79,104 @@ void sub(int n, int matA[Z][Z], int matB[Z][Z], int matC[Z][Z]) {
 	}
 }
 
+// Strassen Multiplication
 void strassen(int n, int matA[Z][Z], int matB[Z][Z], int matC[Z][Z]) { 
 	
+	// Add one to the multiplications made to do strassen
 	strassenMultiplication++;
 
+	// End of partitioning
 	if (n == 1) {
 		matC[0][0] = matA[0][0] * matB[0][0];
 		return;
 	} 
+	
+	// To keep devidin
+	int median = n/2;
 
-	else  {
+	// Cuarters of sub matrix A
+	int matA00[Z][Z], matA01[Z][Z];
+	int matA10[Z][Z], matA11[Z][Z];
 
-		int median = n/2;
+	// Cuarters of sub matrix B
+	int matB00[Z][Z], matB01[Z][Z];
+	int matB10[Z][Z], matB11[Z][Z];
+	    
+	// Cuarters of sub matrix C
+	int matC00[Z][Z], matC01[Z][Z]; 
+	int matC10[Z][Z], matC11[Z][Z];
+	    
+	// Auxiliar matrixes
+	int matAux1[Z][Z], matAux2[Z][Z]; 
+	int matAux3[Z][Z], matAux4[Z][Z]; 
+	int matAux5[Z][Z], matAux6[Z][Z]; 
+	int matAux7[Z][Z];
+	    
+	// Resulting matrix
+	int resMatA[Z][Z], resMatB[Z][Z];
 
-		int matA00[Z][Z], matA01[Z][Z]; 
-		int matA10[Z][Z], matA11[Z][Z];
-	    
-	    int matB00[Z][Z], matB01[Z][Z];
-	    int matB10[Z][Z], matB11[Z][Z];
-	    
-	    int matC00[Z][Z], matC01[Z][Z]; 
-	    int matC10[Z][Z], matC11[Z][Z];
-	    
-	    int matAux1[Z][Z], matAux2[Z][Z]; 
-	    int matAux3[Z][Z], matAux4[Z][Z]; 
-	    int matAux5[Z][Z], matAux6[Z][Z]; 
-	    int matAux7[Z][Z];
-	    
-	    int resMatA[Z][Z], resMatB[Z][Z];
-
-	    for (int i=0; i<median; i++) {
+	// Fill cuarters of sub matrix
+	for (int i=0; i<median; i++) {
 	    	
-	    	for (int j=0; j<median; j++) {
+		for (int j=0; j<median; j++) {
 
-	    		matA00[i][j] = matA[i][j];
-	    		matB00[i][j] = matB[i][j];
+			matA00[i][j] = matA[i][j];
+			matB00[i][j] = matB[i][j];
+			matA01[i][j] = matA[i][j+median];
+			matB01[i][j] = matB[i][j+median];
 
-	    		matA01[i][j] = matA[i][j+median];
-	    		matB01[i][j] = matB[i][j+median];
+			matA10[i][j] = matA[i+median][j];
+			matB10[i][j] = matB[i+median][j];
 
-	    		matA10[i][j] = matA[i+median][j];
-	    		matB10[i][j] = matB[i+median][j];
+			matA11[i][j] = matA[i+median][j+median];
+			matB11[i][j] = matB[i+median][j+median];
+		}
+	}
 
-	    		matA11[i][j] = matA[i+median][j+median];
-	    		matB11[i][j] = matB[i+median][j+median];
-	    	}
-	    }
+	sum(median, matA00, matA11, resMatA);
+	sum(median, matB00, matB11, resMatB);
+	strassen(median, resMatA, resMatB, matAux1);
 
-	    sum(median, matA00, matA11, resMatA);
-	    sum(median, matB00, matB11, resMatB);
-	    strassen(median, resMatA, resMatB, matAux1);
+	sum(median, matA10, matA11, resMatA);
+	strassen(median, resMatA, matB00, matAux2);
 
-	    sum(median, matA10, matA11, resMatA);
-	    strassen(median, resMatA, matB00, matAux2);
+	sub(median, matB01, matB11, resMatB);
+	sub(median, matB01, matB11, resMatB);
+	strassen(median, matA00, resMatB, matAux3);
 
-	    sub(median, matB01, matB11, resMatB);
-	    sub(median, matB01, matB11, resMatB);
-	    strassen(median, matA00, resMatB, matAux3);
+	sub(median, matB10, matB00, resMatB);
+	strassen(median, matA11, resMatB, matAux4);
+	sum(median, matA00, matA01, resMatA);
+	strassen(median, resMatA, matB11, matAux5);
 
-	    sub(median, matB10, matB00, resMatB);
-	    strassen(median, matA11, resMatB, matAux4);
-	    sum(median, matA00, matA01, resMatA);
-	    strassen(median, resMatA, matB11, matAux5);
+	sub(median, matA10, matA00, resMatA);
+	sum(median, matB00, matB01, resMatB);
+	strassen(median, resMatA, resMatB, matAux6);
 
-	    sub(median, matA10, matA00, resMatA);
-	    sum(median, matB00, matB01, resMatB);
-	    strassen(median, resMatA, resMatB, matAux6);
+	sub(median, matA01, matA11, resMatA);
+	sum(median, matB10, matB11, resMatB);
+	strassen(median, resMatA, resMatB, matAux7);
 
-	    sub(median, matA01, matA11, resMatA);
-	    sum(median, matB10, matB11, resMatB);
-	    strassen(median, resMatA, resMatB, matAux7);
+	sum(median, matAux3, matAux5, matC01);
+	sum(median, matAux2, matAux4, matC10);
 
-	    sum(median, matAux3, matAux5, matC01);
-	    sum(median, matAux2, matAux4, matC10);
+	sum(median, matAux1, matAux4, resMatA);
+	sum(median, resMatA, matAux7, resMatB);
+	sub(median, resMatB, matAux5, matC00);
 
-	    sum(median, matAux1, matAux4, resMatA);
-	    sum(median, resMatA, matAux7, resMatB);
-	    sub(median, resMatB, matAux5, matC00);
+	sum(median, matAux1, matAux3, resMatA);
+	sum(median, resMatA, matAux6, resMatB);
+	sub(median, resMatB, matAux2, matC11);
 
-	    sum(median, matAux1, matAux3, resMatA);
-	    sum(median, resMatA, matAux6, resMatB);
-	    sub(median, resMatB, matAux2, matC11);
-
-	    for (int i=0; i<median; i++) {
+	for (int i=0; i<median; i++) {
 	    	
-	    	for (int j=0; j<median; j++) {
+		for (int j=0; j<median; j++) {
 
-	    		matC[i][j] = matC00[i][j];
-	    		matC[i][j+median] = matC01[i][j];
-	    		matC[i+median][j] = matC10[i][j];
-	    		matC[i+median][j+median] = matC11[i][j];
-	    	}
-	    }
+			matC[i][j] = matC00[i][j];
+			matC[i][j+median] = matC01[i][j];
+			matC[i+median][j] = matC10[i][j];
+			matC[i+median][j+median] = matC11[i][j];
+		}
 	}
 }
 
