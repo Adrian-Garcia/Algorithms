@@ -72,6 +72,7 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	bool mat[N1+N2][maximum+1];
 	int numbers[maximum+1] = {0};
 	
+	// Matrix equal to false
 	for (i=0; i<N1+N2; i++) {
 		for (j=0; j<maximum+1; j++) {
 			mat[i][j] = false;
@@ -92,9 +93,7 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 				mat[j+i][train1[i]] = true;
 			}
 		}
-	} 
-
-	for (i=0; i<N2; i++) {
+	} for (i=0; i<N2; i++) {
 	
 		// Add one to the counter of the element
 		numbers[train2[i]]++;
@@ -115,17 +114,10 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		} cout << endl;
 	} cout << endl;
 
-	for (i=0; i<maximum+1; i++) {
-		cout << numbers[i] << " ";
-	} cout << endl << endl;
-
+	// Validate that the order can be made
 	for (int i=1; i<N1+N2 && flag; i++) {
 		
 		numbers[order[i]]--;
-
-		cout << i << ": " << numbers[i] << "\t"; 
-		cout << mat[i][order[i]] << " " << endl;
-
 		flag = (mat[i][order[i]] && numbers[i] >= 0) ? true : false;
 	}
 
@@ -136,39 +128,39 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 int main() {
 
 	int cases; 			// Cases 
-	int N1 = 3; 		// Size of train 1
-	int N2 = 3;			// Size of train 2
+	int N1;	 			// Size of train 1
+	int N2;				// Size of train 2
 
-	// cin >> N1 >> N2;
+	cin >> N1 >> N2;
 
-	// while (!N1 && !N2)	{
+	while (N1 != 0 && N2 != 0)	{
 
-		int train1[N1] = {1, 2, 3};
-		int train2[N2] = {3, 2, 1};
-		int order[N1+N2] = {3, 2, 1, 1, 2, 3}; 
+		int train1[N1];		// Train1
+		int train2[N2];		// Train2
+		int order[N1+N2];	// Order of vagons
 
-		// Ask for train i
-		// for (int i=0; i<N1; i++) {
-		// 	cin >> train1[i];
-		// }
+		// Ask for train 1
+		for (int i=0; i<N1; i++) {
+			cin >> train1[i];
+		}
 
-		// // Ask for train 2
-		// for (int i=0; i<N2; i++) {
-		// 	cin >> train2[i];
-		// }
+		// Ask for train 2
+		for (int i=0; i<N2; i++) {
+			cin >> train2[i];
+		}
 
-		// // Ask for order
-		// for (int i=0; i<N1+N2; i++) {
-		// 	cin >> order[i];
-		// }
+		// Ask for order
+		for (int i=0; i<N1+N2; i++) {
+			cin >> order[i];
+		}
 
 		validate(N1, N2, train1, train2, order) ? 
 			cout << "possible" << endl:
 			cout << "not possible" << endl;
 
 		// Ask new size of trains
-		// cin >> N1 >> N2;
-	// }
+		cin >> N1 >> N2;
+	}
 
 	// End program
 	return 0;
