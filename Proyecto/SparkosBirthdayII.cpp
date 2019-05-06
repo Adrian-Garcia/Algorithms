@@ -28,37 +28,126 @@ Sample Output:
 */
 #include <iostream>
 #include <vector>
+#include <limits.h>
+#include <queue>
 
 using namespace std;
 
-void traveler(int N, int M, vector<int> &Dist, vector<vector<pair<int, int> > > &G) {
+int INF = INT_MAX;
+
+void findPath(vector<vector<int> > houses, vector<int> P, int &adder) {
 	
+}
+
+// Traveler salesman problem solved 
+int traveler(priority_queue<pair<int,vector<int> >, 
+	vector<pair<int,vector<int> > >, 
+	greater<pair<int,vector<int> > > > pQ, vector<vector<int> > houses) {
+	
+	int minimalCost = INF;
+
+	// Search in all the posible paths
+	while (!pQ.empty()) {
+		
+		if (minimalCost > pQ.top().first) {
+			
+			vector<bool> check(houses.size());
+			int size = pQ.top().second.size();
+			int cost = pQ.top().first;
+			bool flag = true;
+
+			for (int i=1; i<size; i++) {
+				check[pQ.top().second[i]] = true;
+			}
+
+			if (size == houses.size()) {
+
+				if (minimalCost>cost && flag) {
+					minimalCost = cost;
+					flag = false;
+				}
+			}
+
+			if (flag) {
+
+				for(int i=1; i<houses.size(); i++){
+					
+					if (houses[pQ.top().second.back()][i] != INF && !check[i]) {
+						vector<int> P(pQ.top().second);
+						P.push_back(i);
+
+						int adder = 0;
+						findPath(houses, P, adder);
+
+						if (adder != INF) {
+
+						}
+					}	
+				}
+			}
+		}
+
+		pQ.pop();
+	}
+
+	return minimalCost;
 }
 
 int main() {
 
-	int N = 4;
-	int M = 5;
+	int N;						// number of Houses	
+	int M;						// Querys
 
-	int u, v, w;
+	char u, v;					// Houses
+	int w; 						// Distance
 
+	int minimalCost = 0;		// Minimal cost to travel
+	int minimmum = INF;		// Minimum value of the distances
+
+	// Distance between places
+	vector<int> distance;
+
+	// Auxiliar Priority Queue
+	priority_queue<pair<int,vector<int> >, 
+		vector<pair<int,vector<int> > >, 
+		greater<pair<int,vector<int> > > > pQ;
+
+	// Asf for Number of houses and querys
 	cin >> N >> M;
 	
-	vector<vector<pair<int, int> > > G(20);
-	vector<int> Dist;
+	// Distances between houses
+	vector<vector<int> > houses(N, vector<int>(N, INF));
 
+	// Ask for distances
 	for (int i=0; i<M; i++) {
 		
 		cin >> u >> v >> w;
 
-		pair<int,int> n1(v-65, w);
-        pair<int,int> n2(u-65, w);
-        
-        G[u-65].push_back(n1);
-        G[v-65].push_back(n2);
+		houses[u-65][v-65] = w;
+		houses[v-65][u-65] = w;
 	}
+	
+	distance.push_back(0);
 
-	// traveler(N, M, Dist, G);
+	for(int i=0; i<houses.size(); i++){
+        
+        for(int j=0; j<houses.size(); j++){
+            
+            minimmum = (houses[i][j] < minimmum) ?
+            	houses[i][j] : minimmum;
+        }
+        
+        minimalCost += minimmum;
+        minimmum = INF;
+    }
 
+    pQ.push(make_pair(minimalCost, distance));
+
+    int res = traveler(pQ, houses)
+
+    (res == INF) ?
+    	cout << "INF" << endl : cout << res << endl;
+
+    // End program
 	return 0;
-}
+}asd

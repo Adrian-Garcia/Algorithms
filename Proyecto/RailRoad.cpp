@@ -54,75 +54,67 @@ int max(int a, int b) {
 
 bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	
-	bool flag = true;			// To validate
-	int maximum = INT_MIN;		// To check size of mat
-	int minimum = INT_MAX;		// To check size of mat
-	int i, j;					// indexes and values
+	bool flag[N1+1][N2+1];					// To validate
+	int i, j;								// Indexes
 
-	// Look for maximum and minimum values of the trains
-	for (i=0; i<N1; i++) {
-		maximum = max(train1[i], maximum);
-		minimum = min(train1[i], maximum);
-	} for (i=0; i<N2; i++) {
-		maximum = max(train2[i], maximum);
-		minimum = min(train2[i], maximum);
-	}
+	// Asume initial value as true
+	flag[0][0] = true;
 
-	// Boolean matrix to locate posible locations
-	bool mat[N1+N2][maximum+1];
-	int numbers[maximum+1] = {0};
-	
-	// Matrix equal to false
-	for (i=0; i<N1+N2; i++) {
-		for (j=0; j<maximum+1; j++) {
-			mat[i][j] = false;
-		}
-	}
-
-	// Change values of posible positions of trains
-	for (i=0; i<N1; i++) {
-	
-		// Add one to the counter of the element
-		numbers[train1[i]]++;
-
-		// Validate positions at matrix
-		for (j=0; j<=N2; j++) {
-
-			// Validate that matrix have not finished
-			if (j<N1+N2+1) {
-				mat[j+i][train1[i]] = true;
-			}
-		}
-	} for (i=0; i<N2; i++) {
-	
-		// Add one to the counter of the element
-		numbers[train2[i]]++;
-
-		// Validate positions at matrix
-		for (j=0; j<=N1; j++) {
-
-			// Validate that matrix have not finished
-			if (j<N1+N2+1) {
-				mat[j+i][train2[i]] = true;
-			}
-		}
-	}
-
-	for (i=0; i<N1+N2; i++) {
-		for (j=0; j<maximum+1; j++) {
-			cout << mat[i][j] << " ";
-		} cout << endl;
-	} cout << endl;
-
-	// Validate that the order can be made
-	for (int i=1; i<N1+N2 && flag; i++) {
+	// First Column
+	for (i=1; i<=N1; i++) {
 		
-		numbers[order[i]]--;
-		flag = (mat[i][order[i]] && numbers[i] >= 0) ? true : false;
+		if (flag[i-1][0]) {
+
+			flag[i][0] = (order[i]==train1[i]) ? true : false;
+		}
+
+		else {
+
+			flag[i][0] = false;
+		}
 	}
 
-	// Return value of flag
-	return flag;
+	// First row
+	for (i=1; i<=N2; i++) {
+		
+		if (flag[0][i-1]) {
+
+			flag[0][i] = (order[i]==train2[i]) ? true : false;
+		}		
+
+		else {
+
+			flag[0][i] = false;
+		}
+	}
+
+	cout << endl << endl;
+	for (int a=0; a<N1+1; a++) {
+		for (int b=0; b<N2+1; b++) {
+			cout << flag[a][b] << " ";
+		} cout << endl;
+	} cout << endl << endl;
+
+	// Internal matrix
+	for (i=1; i<=N1; i++) {
+		
+		for (j=1; j<=N2; j++) {
+			
+			// Validate positions
+			if (order[i+j] == train1[i] && flag[i-1][j]) {
+				flag[i][j] = true;
+			} else if (order[i+j] == train2[j] && flag[i][j-1]) {
+				flag[i][j] = true;
+			} else {
+				flag[i][j] = false;
+			}
+		}
+	}
+	
+	cout << endl << flag[N1][N2] << endl;
+
+	// Return last value of the matrix
+	return flag[N1][N2];
 }
 
 int main() {
