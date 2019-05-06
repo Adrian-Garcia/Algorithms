@@ -10,12 +10,10 @@ a time. All railroad cars must be moved to the left eventually. Depending on whi
 we will obtain different arrangements for the departing train on the left. For example, we mayobtain the order 1,1,1,2,2,2 by 
 always choosing the top train until all of its cars have been moved. We may also obtain the order 2,1,2,1,2,1 by alternately 
 choosing railroad cars from the two trains.
-
 To facilitate further processing at the other train yards later on in the trip (and also at the destination), the supervisor at 
 the train yard has been given an ordering of the products desired for the departing train. In this problem, you must decide 
 whether it is possible to obtain the desired ordering, given the orders of the products for the two trains arriving at the train 
 yard.
-
 Input 
 	The input consists of a number of cases. The first line contains two positive integers N1 N2 which are the number of railroad 
 	cars in each train. There are at least 1 and at most 1000 railroad cars in each train. The second line contains N1 positive 
@@ -23,10 +21,8 @@ Input
 	third line contains N2 positive integers identifying the products on the second train (same format as above). Finally, the 
 	fourth line contains N1+N2 positive integers giving the desired order for the departing train (same format as above).The end 
 	of input is indicated by N1 = N2 = 0
-
 Output
 	For each case, print on a line possible if it is possible to produce the desired order, or not possible if not.
-
 Sample input
 	3 3
 	1 2 1
@@ -37,7 +33,6 @@ Sample input
 	2 1 2
 	1 1 1 2 2 2
 	0 0
-
 Sample Output
 	possible
 	not possible
@@ -60,40 +55,32 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	// Asume initial value as true
 	flag[0][0] = true;
 
-	// First Column
-	for (i=1; i<=N1; i++) {
+	// First train
+	for (i=0; i<N1; i++) {
 		
-		if (flag[i-1][0]) {
+		if (flag[i][0])
+			flag[i+1][0] = (order[i+1]==train1[i+1]) ? true : false;
 
-			flag[i][0] = (order[i]==train1[i]) ? true : false;
-		}
-
-		else {
-
-			flag[i][0] = false;
-		}
+		else 
+			flag[i+1][0] = false;
 	}
 
-	// First row
-	for (i=1; i<=N2; i++) {
+	// Second train
+	for (i=0; i<N2; i++) {
 		
-		if (flag[0][i-1]) {
+		if (flag[0][i]) 
+			flag[0][i+1] = (order[i+1]==train2[i+1]) ? true : false;	
 
-			flag[0][i] = (order[i]==train2[i]) ? true : false;
-		}		
-
-		else {
-
-			flag[0][i] = false;
-		}
+		else 
+			flag[0][i+1] = false;
 	}
 
-	cout << endl << endl;
-	for (int a=0; a<N1+1; a++) {
-		for (int b=0; b<N2+1; b++) {
-			cout << flag[a][b] << " ";
-		} cout << endl;
-	} cout << endl << endl;
+	// cout << endl << endl;
+	// for (int a=0; a<N1+1; a++) {
+	// 	for (int b=0; b<N2+1; b++) {
+	// 		cout << flag[a][b] << " ";
+	// 	} cout << endl;
+	// } cout << endl << endl;
 
 	// Internal matrix
 	for (i=1; i<=N1; i++) {
@@ -111,7 +98,7 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		}
 	}
 	
-	cout << endl << flag[N1][N2] << endl;
+	// cout << endl << flag[N1][N2] << endl;
 
 	// Return last value of the matrix
 	return flag[N1][N2];
@@ -127,22 +114,22 @@ int main() {
 
 	while (N1 != 0 && N2 != 0)	{
 
-		int train1[N1];		// Train1
-		int train2[N2];		// Train2
+		int train1[N1+1];		// Train1
+		int train2[N2+1];		// Train2
 		int order[N1+N2];	// Order of vagons
 
 		// Ask for train 1
-		for (int i=0; i<N1; i++) {
+		for (int i=1; i<=N1; i++) {
 			cin >> train1[i];
 		}
 
 		// Ask for train 2
-		for (int i=0; i<N2; i++) {
+		for (int i=1; i<=N2; i++) {
 			cin >> train2[i];
 		}
 
 		// Ask for order
-		for (int i=0; i<N1+N2; i++) {
+		for (int i=1; i<=N1+N2; i++) {
 			cin >> order[i];
 		}
 
