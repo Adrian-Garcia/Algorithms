@@ -55,32 +55,32 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 	// Asume initial value as true
 	flag[0][0] = true;
 
-	// First Column
-	for (i=1; i<=N1; i++) {
+	// First train
+	for (i=0; i<N1; i++) {
 		
-		if (flag[i-1][0])
-			flag[i][0] = (order[i]==train1[i]) ? true : false;
+		if (flag[i][0])
+			flag[i+1][0] = (order[i+1]==train1[i+1]) ? true : false;
 
 		else 
-			flag[i][0] = false;
+			flag[i+1][0] = false;
 	}
 
-	// First row
-	for (i=1; i<=N2; i++) {
+	// Second train
+	for (i=0; i<N2; i++) {
 		
-		if (flag[0][i-1]) 
-			flag[0][i] = (order[i]==train2[i]) ? true : false;	
+		if (flag[0][i]) 
+			flag[0][i+1] = (order[i+1]==train2[i+1]) ? true : false;	
 
 		else 
-			flag[0][i] = false;
+			flag[0][i+1] = false;
 	}
 
-	cout << endl << endl;
-	for (int a=0; a<N1+1; a++) {
-		for (int b=0; b<N2+1; b++) {
-			cout << flag[a][b] << " ";
-		} cout << endl;
-	} cout << endl << endl;
+	// cout << endl << endl;
+	// for (int a=0; a<N1+1; a++) {
+	// 	for (int b=0; b<N2+1; b++) {
+	// 		cout << flag[a][b] << " ";
+	// 	} cout << endl;
+	// } cout << endl << endl;
 
 	// Internal matrix
 	for (i=1; i<=N1; i++) {
@@ -98,7 +98,7 @@ bool validate(int N1, int N2, int train1[], int train2[], int order[]) {
 		}
 	}
 	
-	cout << endl << flag[N1][N2] << endl;
+	// cout << endl << flag[N1][N2] << endl;
 
 	// Return last value of the matrix
 	return flag[N1][N2];
@@ -114,8 +114,8 @@ int main() {
 
 	while (N1 != 0 && N2 != 0)	{
 
-		int train1[N1];		// Train1
-		int train2[N2];		// Train2
+		int train1[N1+1];		// Train1
+		int train2[N2+1];		// Train2
 		int order[N1+N2];	// Order of vagons
 
 		// Ask for train 1
