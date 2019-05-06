@@ -36,7 +36,33 @@ using namespace std;
 int INF = INT_MAX;
 
 void findPath(vector<vector<int> > houses, vector<int> P, int &adder) {
+
+	int size = houses.size();			// Number of houses
+	bool check[size];					// Houses already checked
+	int minimalCost = INF;				// Minimum cost of path
 	
+	for (int i=1; i<size; i++) {
+		check[houses[i]] = true;
+		adder += houses[P[i]][P[i]];
+	}
+
+	if (size == p.size()) {
+		adder += houses[P.back()][0];
+		return;
+	}
+
+	for(int i=1; i<size; i++){
+        minimalCost = ((houses[camino.back()][j] < minimalCost) && !check[i]) ?
+        	houses[P.back()][i] : minimalCost;	
+    }
+
+	if (minimalCost == INF) {
+		adder = INT_MAX;
+		return;
+	} else {
+		adder += minimalCost;
+	}
+
 }
 
 // Traveler salesman problem solved 
