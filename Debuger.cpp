@@ -1,118 +1,121 @@
-/*
-    Nombre: Luis Alberto Pérez Chapa
-    ID: A01282564
-    
-    Proy F. Railroad
-*/
-
 #include <iostream>
+#include <vector>
+#include <climits>
+#include <queue>
 using namespace std;
 
-bool order(int car1, int car2, int tren1[], int tren2[], int arr[]){
-
-    bool mat[car1 + 1][car2 + 1];
-    mat[0][0] = true;
-
-   // llenar primer columna
-    for(int i = 1; i <= car1; i++){
-        if(mat[i-1][0] != true){
-            mat[i][0] = false;
-        } 
-        else{
-            if(arr[i] == tren1[i]){
-                mat[i][0] = true;
-            } 
-            else{
-                mat[i][0] = false;
-            }
+int getCP(vector<vector<int> > path, vector<int> camino){
+    int suma = 0;
+    vector<bool> taken(path.size());
+    for(int i=1; i<camino.size(); i++){
+        taken[camino[i]] = true;
+        suma += path[camino[i]][camino[i-1]];
+    }
+    if(camino.size()==path.size()) return suma+path[camino.back()][0];
+    int min = INT_MAX;
+    for(int j=1; j<path.size(); j++){
+        if(!taken[j] && path[camino.back()][j]<min){
+            min = path[camino.back()][j];
         }
     }
-
-    // llenar primer fila
-    for(int i = 1; i <= car2; i++){
-        if(mat[0][i-1] != true){
-            mat[0][i] = false;
-        } 
-        else{
-            if(arr[i] == tren2[i]){
-                mat[0][i] = true;
-            } 
-            else{
-                mat[0][i] = false;
+    if(min!=INT_MAX){
+        suma += min;
+    } else {
+        return INT_MAX;
+    }
+    for(int i=1; i<path.size(); i++){
+        if(taken[i]) continue;
+        min = INT_MAX;
+        for(int j=0; j<path.size(); j++){
+            if(!taken[j] && path[i][j]<min){
+                min = path[i][j];
             }
         }
-    }
-
-    cout << endl  << endl;
-    for (int a=0; a<car1+1; a++) {
-        for (int b=0; b<car2+1; b++) {
-            cout << mat[a][b] << " ";
-        } cout << endl;
-    } cout << endl  << endl;
-
-    // llenar toda la matriz
-    for(int i = 1; i <= car1; i++){
-        for (int j = 1; j <= car2; j++){
-            if(mat[i-1][j] && (arr[i+j] == tren1[i])){ 
-                    mat[i][j] = true;
-            } 
-            else if(mat[i][j-1] && (arr[i+j] == tren2[j])){
-                mat[i][j] = true;
-            } 
-            else{
-                mat[i][j] = false;
-            }
+        if(min!=INT_MAX){
+            suma += min;
+        } else {
+            suma = INT_MAX;
+            break;
         }
     }
-
-    
-    cout << endl << mat[car1][car2] << endl;
-
-    return mat[car1][car2];
+    return suma;
 }
 
-int main() {
-
-    // car1 = cantidad de vagones del tren1
-    // car2 = cantidad de vagones del tren2
-    int car1, car2, aux;
-    cin >> car1 >> car2;
-
-    while(car1 != 0 && car2 != 0) {
-
-        // valores del tren1 y tren2
-        // valores del resultado final a comprobar
-        int tren1[car1];
-        int tren2[car2];
-        int number[car1+car2];
-        
-        // recibir valores del tren 1
-        for(int i = 1; i <= car1; i++){
-            cin >> tren1[i];
+int travel(vector<vector<int> > path,
+            priority_queue<pair<int,vector<int> > , vector<pair<int,vector<int> > >, greater<pair<int,vector<int> > > > nodos){
+    int costoMin = INT_MAX;
+    while(!nodos.empty()){
+        pair<int,vector<int> > nodo = nodos.top();
+        /* cout << "Nodo:   CP:" << nodo.first << "  Camino: ";
+        for(int i=0; i<nodo.second.size(); i++){
+            cout << nodo.second[i] << " ";
         }
-        
-        // recibir valores tren 2
-        for(int i = 1; i<=car2; i++){
-            cin >> tren2[i];
+        cout << endl;*/
+        nodos.pop();
+        if(nodo.first > costoMin) continue;
+        vector<bool> taken(path.size());
+        for(int i=1; i<nodo.second.size(); i++){
+            taken[nodo.second[i]] = true;
         }
+        if(nodo.second.size() == path.size()){
+            int costo = nodo.first;
+            // cout << "Hoja: " << costo << endl;
+            if(costo < costoMin) costoMin = costo;
+            continue;
+        }
+        for(int i=1; i<path.size(); i++){
+            if(!taken[i] && path[nodo.second.back()][i]!=INT_MAX){
+                vector<int> newCamino(nodo.second);
+                newCamino.push_back(i);
+                int newCP = getCP(path,newCamino);
+                // cout << " -> " << i << ":" << newCP;
+                if(newCP!=INT_MAX) nodos.push(make_pair(newCP,newCamino));
+            }
+        }
+        // cout << endl;
+    }
+    return costoMin;
+}
 
-        // recibir valores finales
-        for(int i = 1; i <= (car1 + car2); i++) {
-            cin >> number[i];
+int main(){
+    int n, m;
+    cin >> n >> m;
+    vector< vector<int> > path(n, vector<int>(n));
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            path[i][j] = path[j][i] = INT_MAX;
         }
-
-        // mandar función order e imprimir resultados
-        if (order(car1, car2, tren1, tren2, number) == true){
-            cout << "possible" << endl;
-        }
-        else{
-            cout << "not possible" << endl;
-        }
-        
-        // recibir proximos valores (si son 0 0, se termina el ciclo)
-        cin >> car1 >> car2;
+    }
+    char init, ending;
+    int dist;
+    // vector< priority_queue<int> > maxims(n);
+    for(int i=0; i<m; i++){
+        cin >> init >> ending >> dist;
+        path[(int)init-'A'][(int)ending-'A'] = dist;
+        path[(int)ending-'A'][(int)init-'A'] = dist;
     }
 
-    // end program
-    return 0;
+    vector<int> camino;
+    camino.push_back(0);
+    // int:cp, vector<int>:camino
+    priority_queue<pair<int,vector<int> > , vector<pair<int,vector<int> > >, greater<pair<int,vector<int> > > > nodos;
+    int costPerf = 0;
+    int min;
+    for(int i=0; i<path.size(); i++){
+        min = INT_MAX;
+        for(int j=0; j<path.size(); j++){
+            if(path[i][j]<min){
+                min = path[i][j];
+            }
+        }
+        costPerf += min;
+    }
+    nodos.push(make_pair(costPerf,camino));
+
+    int output = travel(path,nodos);
+    if(output != INT_MAX){
+        cout << output << endl;
+    } else {
+        cout << "INF" << endl;
+    }
 }

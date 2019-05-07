@@ -37,21 +37,20 @@ int INF = INT_MAX;
 
 void findPath(vector<vector<int> > houses, vector<int> P, int &adder) {
 
-	int size = houses.size();			// Number of houses
-	vector<bool> check(size);			// Houses already checked
+	vector<bool> check(houses.size());	// Houses already checked
 	int minimalCost = INF;				// Minimum cost of path
 	
-	for (int i=1; i<size; i++) {
+	for (int i=1; i<houses.size(); i++) {
+		adder += houses[P[i]][P[i-1]];
 		check[P[i]] = true;
-		adder += houses[P[i]][P[i]];
 	}
 
-	if (size == P.size()) {
+	if (houses.size() == P.size()) {
 		adder += houses[P.back()][0];
 		return;
 	}
 
-	for(int i=1; i<size; i++){
+	for(int i=1; i<houses.size(); i++){
         minimalCost = ((houses[P.back()][i] < minimalCost) && !check[i]) ?
         	houses[P.back()][i] : minimalCost;	
     }
@@ -62,18 +61,19 @@ void findPath(vector<vector<int> > houses, vector<int> P, int &adder) {
 	if (adder == INF)
 		return; 
 
-	for(int i=1; i<size; i++){
+	for(int i=1; i<houses.size(); i++){
         
 		minimalCost = INF;
 
         if(!check[i]) {
 	        
-	        for(int j=0; j<size; j++){
+	        for(int j=0; j<houses.size(); j++){
 	            
-	            if(!check[j] &&  minimalCost > houses[i][j]){
+	            if(minimalCost > houses[i][j] && !check[j]){
 	                minimalCost = houses[i][j];
 	            }
 	        }
+
 	        if(minimalCost == INF){
 	            adder = INF;
 	            break;
@@ -127,7 +127,7 @@ int traveler(priority_queue<pair<int,vector<int> >,
 						if (adder != INF) {
 
 						}
-					}	
+					}
 				}
 			}
 		}
