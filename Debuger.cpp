@@ -49,24 +49,18 @@ int travel(vector<vector<int> > path,
     cout << endl << endl;
     while(!nodos.empty()){
         pair<int,vector<int> > nodo = nodos.top();
-        /* cout << "Nodo:   CP:" << nodo.first << "  Camino: ";
-        for(int i=0; i<nodo.second.size(); i++){
-            cout << nodo.second[i] << " ";
-        }
-        cout << endl;*/
 
         cout << nodos.top().first << " ";
 
         nodos.pop();
         if(nodo.first > costoMin) continue;
-        cout << "YEA "; 
         vector<bool> taken(path.size());
         for(int i=1; i<nodo.second.size(); i++){
             taken[nodo.second[i]] = true;
         }
         if(nodo.second.size() == path.size()){
             int costo = nodo.first;
-            // cout << "Hoja: " << costo << endl;
+            cout << costo << " ";
             if(costo < costoMin) costoMin = costo;
             continue;
         }
@@ -75,7 +69,7 @@ int travel(vector<vector<int> > path,
                 vector<int> newCamino(nodo.second);
                 newCamino.push_back(i);
                 int newCP = getCP(path,newCamino);
-                // cout << " -> " << i << ":" << newCP;
+                cout << newCP << " ";
                 if(newCP!=INT_MAX) nodos.push(make_pair(newCP,newCamino));
             }
         }
@@ -95,7 +89,6 @@ int main(){
     }
     char init, ending;
     int dist;
-    // vector< priority_queue<int> > maxims(n);
     for(int i=0; i<m; i++){
         cin >> init >> ending >> dist;
         path[(int)init-'A'][(int)ending-'A'] = dist;
@@ -111,7 +104,6 @@ int main(){
 
     vector<int> camino;
     camino.push_back(0);
-    // int:cp, vector<int>:camino
     priority_queue<pair<int,vector<int> > , vector<pair<int,vector<int> > >, greater<pair<int,vector<int> > > > nodos;
     int costPerf = 0;
     int min;

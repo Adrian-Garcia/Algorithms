@@ -33,7 +33,7 @@ Sample Output:
 
 using namespace std;
 
-int INF = INT_MAX;
+#define INF INT_MAX
 
 int findPath(vector<vector<int> > houses, vector<int> P) {
 
@@ -46,14 +46,12 @@ int findPath(vector<vector<int> > houses, vector<int> P) {
 		check[P[i]] = true;
 	}
 
-	if (houses.size() == P.size()) {
+	if (houses.size() == P.size()) 
 		return adder += houses[P.back()][0];
-	}
 
-	for(int i=1; i<houses.size(); i++){
+	for(int i=1; i<houses.size(); i++) 
         minimalCost = ((houses[P.back()][i] < minimalCost) && !check[i]) ?
         	houses[P.back()][i] : minimalCost;	
-    }
 
     adder = (minimalCost == INF) ?
     	INF : adder+minimalCost;
@@ -67,11 +65,9 @@ int findPath(vector<vector<int> > houses, vector<int> P) {
 
         if(!check[i]) {
 	        
-	        for(int j=0; j<houses.size(); j++){
-	            
+	        for(int j=0; j<houses.size(); j++)
 	        	minimalCost = (minimalCost > houses[i][j] && !check[j]) ?
 	                houses[i][j] : minimalCost;
-	        }
 
 	        if(minimalCost == INF){
 	            adder = INF;
@@ -94,52 +90,49 @@ int traveler(priority_queue<pair<int,vector<int> >,
 	int minimalCost = INF;
 	int adder = 0;
 
-	cout << endl << endl;
 	// Search in all the posible paths
 	while (!pQ.empty()) {
+
+		pair<int,vector<int> > top = pQ.top();
+		vector<int> P(top.second);
+		int size = top.second.size();
+		int cost = top.first;
+		bool flag = true;
 		
-		cout << pQ.top().first << " ";
+		pQ.pop();
 
-		if (minimalCost > pQ.top().first) {
-			
-			cout << "YEA ";
+		if (minimalCost < top.first)
+			flag = false;  
 
-			int size = pQ.top().second.size();
-			int cost = pQ.top().first;
-			bool flag = true;
+		if (flag) {
 
-			for (int i=1; i<pQ.top().second.size(); i++) {
-				check[pQ.top().second[i]] = true;
-			}
+			for (int i=1; i<top.second.size(); i++) 
+				check[top.second[i]] = true;
 
-			if (pQ.top().second.size() == houses.size()) {
-
-				cost = pQ.top().first;
+			if (top.second.size() == houses.size()) {
+				
+				cost = top.first;
 				flag = false;
 				
-				if (minimalCost > cost && !flag) {
+				if (minimalCost > cost)
 					minimalCost = cost;
-				}	
 			}
 
 			if (flag) {
 
 				for(int i=1; i<houses.size(); i++){
 					
-					if (houses[pQ.top().second.back()][i] != INF && !check[i]) {
-						vector<int> P(pQ.top().second);
+					if (houses[top.second.back()][i] != INF && !check[i]) {
+						
 						P.push_back(i);
-
 						adder = findPath(houses, P);
-
+						
 						if (adder != INF) 
 							pQ.push(make_pair(adder,P));
 					}
 				}
 			}
 		}
-		cout << endl;
-		pQ.pop();
 	}
 
 	// Return smallest path of houses 
@@ -188,13 +181,6 @@ int main() {
 		houses[u-'A'][v-'A'] = w;
 		houses[v-'A'][u-'A'] = w;
 	}
-	
-	cout << endl;
-	for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            cout << houses[i][j] << "\t\t"; 
-        } cout << endl;
-    } 
 
 	distance.push_back(0);
 	minimalCost = 0;
@@ -212,7 +198,6 @@ int main() {
         minimalCost += minimmum;
     }
 
-    cout << endl << minimmum << " " << minimalCost << " " << distance[0] << endl;
     pQ.push(make_pair(minimalCost, distance));
 
     res = traveler(pQ, houses);
