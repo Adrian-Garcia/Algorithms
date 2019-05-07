@@ -42,8 +42,11 @@ int getCP(vector<vector<int> > path, vector<int> camino){
 }
 
 int travel(vector<vector<int> > path,
-            priority_queue<pair<int,vector<int> > , vector<pair<int,vector<int> > >, greater<pair<int,vector<int> > > > nodos){
+            priority_queue<pair<int,vector<int> >, 
+            vector<pair<int,vector<int> > >, 
+            greater<pair<int,vector<int> > > > nodos){
     int costoMin = INT_MAX;
+    cout << endl << endl;
     while(!nodos.empty()){
         pair<int,vector<int> > nodo = nodos.top();
         /* cout << "Nodo:   CP:" << nodo.first << "  Camino: ";
@@ -51,8 +54,12 @@ int travel(vector<vector<int> > path,
             cout << nodo.second[i] << " ";
         }
         cout << endl;*/
+
+        cout << nodos.top().first << " ";
+
         nodos.pop();
         if(nodo.first > costoMin) continue;
+        cout << "YEA "; 
         vector<bool> taken(path.size());
         for(int i=1; i<nodo.second.size(); i++){
             taken[nodo.second[i]] = true;
@@ -72,7 +79,7 @@ int travel(vector<vector<int> > path,
                 if(newCP!=INT_MAX) nodos.push(make_pair(newCP,newCamino));
             }
         }
-        // cout << endl;
+        cout << endl;
     }
     return costoMin;
 }
@@ -95,12 +102,20 @@ int main(){
         path[(int)ending-'A'][(int)init-'A'] = dist;
     }
 
+    cout << endl;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout << path[i][j] << "\t\t";
+        } cout << endl;
+    } 
+
     vector<int> camino;
     camino.push_back(0);
     // int:cp, vector<int>:camino
     priority_queue<pair<int,vector<int> > , vector<pair<int,vector<int> > >, greater<pair<int,vector<int> > > > nodos;
     int costPerf = 0;
     int min;
+   
     for(int i=0; i<path.size(); i++){
         min = INT_MAX;
         for(int j=0; j<path.size(); j++){
@@ -110,6 +125,8 @@ int main(){
         }
         costPerf += min;
     }
+
+    cout << endl << min << " " << costPerf <<" " << camino[0] << endl;
     nodos.push(make_pair(costPerf,camino));
 
     int output = travel(path,nodos);
