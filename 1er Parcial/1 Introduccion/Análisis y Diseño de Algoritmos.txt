@@ -31,7 +31,7 @@ Análisis y Diseño de Algoritmos
 				10 puntos extras
 
 		Calificación Examenes
-			Práctico 			40%
+			Práctico 			40% 
 			Teórico				60%
 
 Introducción al Análisis de Algoritmos 
