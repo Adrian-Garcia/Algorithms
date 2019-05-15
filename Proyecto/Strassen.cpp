@@ -36,10 +36,10 @@ using namespace std;
 
 #define Z 80
 int strassenMultiplication = 0;
+int matD[Z][Z];
 
 int traditional(int n, int matA[Z][Z], int matB[Z][Z]) { 
-	
-	int matC[n][n];	
+
 	int multiplications = 0;
 
 	for (int i=0; i<n; i++) { 
@@ -47,10 +47,10 @@ int traditional(int n, int matA[Z][Z], int matB[Z][Z]) {
 		for (int j=0; j<n; j++) { 
 			
 			// No value for that direction
-			matC[i][j] = 0; 
+			matD[i][j] = 0; 
 			
 			for (int k=0; k<n; k++) { 
-				matC[i][j]+=matA[i][k]*matB[k][j]; 
+				matD[i][j]+=matA[i][k]*matB[k][j]; 
 				multiplications++;
 			} 
 		} 
@@ -94,15 +94,15 @@ void strassen(int n, int matA[Z][Z], int matB[Z][Z], int matC[Z][Z]) {
 	// To keep devidin
 	int median = n/2;
 
-	// Cuarters of sub matrix A
+	// Quartes of sub matrix A
 	int matA00[Z][Z], matA01[Z][Z];
 	int matA10[Z][Z], matA11[Z][Z];
 
-	// Cuarters of sub matrix B
+	// Quartes of sub matrix B
 	int matB00[Z][Z], matB01[Z][Z];
 	int matB10[Z][Z], matB11[Z][Z];
 	    
-	// Cuarters of sub matrix C
+	// Quartes of sub matrix C
 	int matC00[Z][Z], matC01[Z][Z]; 
 	int matC10[Z][Z], matC11[Z][Z];
 	    
@@ -115,7 +115,7 @@ void strassen(int n, int matA[Z][Z], int matB[Z][Z], int matC[Z][Z]) {
 	// Resulting matrix
 	int resMatA[Z][Z], resMatB[Z][Z];
 
-	// Fill cuarters of sub matrix
+	// Fill quarter of sub matrix
 	for (int i=0; i<median; i++) {
 	    	
 		for (int j=0; j<median; j++) {
@@ -133,6 +133,7 @@ void strassen(int n, int matA[Z][Z], int matB[Z][Z], int matC[Z][Z]) {
 		}
 	}
 
+	// Solve Quartes
 	sum(median, matA00, matA11, resMatA);
 	sum(median, matB00, matB11, resMatB);
 	strassen(median, resMatA, resMatB, matAux1);
@@ -209,6 +210,13 @@ int main() {
 	// Display results
 	cout << "Traditional Scalar Multiplications: " << traditional(n, matA, matB) << endl;
 	cout << "Strassen Scalar Multiplications: " << strassenMultiplication-1 << endl;
+	cout << "Strassen Result Matrix:" << endl; 
+	
+	for (int i=0; i<n; i++) {
+		for (int j=0; j<n; j++) {
+			cout << matD[i][j] << " ";
+		} cout << endl;
+	}
 
 	// End program
 	return 0;
