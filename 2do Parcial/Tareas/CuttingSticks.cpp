@@ -28,13 +28,13 @@ int minimum(int ci[], int l, int n) {
 			}
 		}
 	}
+	
+	for (int i=0; i<=n; i++) {
 
-	// for (int i=0; i<n; i++) {
-	// 	for (int j=0; j<n; j++) {
-	// 		cout << Matrix[i][j] << "\t";
-	// 	}
-	// 	cout << endl;
-	// }
+		for (int j=0; j<=n; j++) {	
+			cout << Matrix[i][j] << "\t";
+		} cout << endl;
+	}
 
 	//Regresamos valor
 	return Matrix[0][n];
