@@ -111,13 +111,24 @@ int LCS(string a, string b) {
 
 	// First Column
 	for (int i=0; i<a.length(); i++)
-		Mat[0][i] = 0;
+		Mat[i][0] = 0;
 
 	for (int i=0; i<b.length(); i++)
-		Mat[0][j] = 0;
+		Mat[0][i] = 0;
 
-		 
+	for (int i=1; i<=a.length(); i++) {
+		
+		for (int j=1; i<=b.length(); j++) {
 
+			if (a[i-1] == b[j-1]) 
+				Mat[i][j] = Mat[i-1][j-1]+1;
+
+			else 
+				Mat[i][j] = max(Mat[i][j-1], Mat[i-1][j]);
+		}
+	}
+
+	return Mat[a.length()][b.length()];
 }
 
 int main() {
