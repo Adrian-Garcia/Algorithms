@@ -18,13 +18,14 @@ using namespace std;
 void audiophobia (int D[size][size], int c) {
 
 	for (int k=0; k<c; k++) {
-		
+	
 		for (int i=0; i<c; i++) {
-			
-			for (int j=0; j<c; j++) {
-				
-				if (D[i][k] != INF && D[k][j] != INF && D[i][j] > max(D[i][k], D[k][j]))
-					D[i][j] = max(D[i][k], D[k][j]);
+	
+			for (int j=0; j<c; j++) {z
+	
+				if(D[i][k] != INT_MAX && D[k][j] != INT_MAX && D[i][j] > max(D[i][k],D[k][j])){
+					D[i][j] = max(D[i][k],D[k][j]); 
+				}
 			}
 		}
 	}
@@ -32,32 +33,32 @@ void audiophobia (int D[size][size], int c) {
 
 int cuttingSticks(int ci[], int l , int n) {
 
-	int Mat[size];
+	int Matrix[50][50];
 
 	for (int i=1; i<=n; i++) {
 
 		for (int j=i-1; j>=0; j--) {
 
-			if (j+1 == i)
-				Mat[j][i] = 0; 
+			if (j+1 == i) 
+				Matrix[j][i] = 0;
 
 			else {
 
-				Mat[j][i] = INF;
+				Matrix[j][i] = INT_MAX;
 
 				for (int k=j+1; k<i; k++) {
-					
-					if (Mat[j][k] + Mat[k][i] < Mat[j][i]) 
-						Mat[j][i] = Mat[j][k] + Mat[k][i];
 
+					if (Matrix[j][k]+Matrix[k][i] < Matrix[j][i])
+						Matrix[j][i] = Matrix[j][k]+Matrix[k][i];
 				}
-			}
 
-			Mat[j][i] += ci[i] - ci[j];
+				Matrix[j][i] += ci[i] - ci[j];
+			}
 		}
 	}
 
-	return Mat[0][n];
+	//Regresamos valor
+	return Matrix[0][n];
 }
 
 void rockytheBeagle(int N, vector<int> &Dist, vector<vector<pair<int, int> > > &G) {
@@ -92,35 +93,38 @@ void rockytheBeagle(int N, vector<int> &Dist, vector<vector<pair<int, int> > > &
 }
 
 double howManyTrees(int n) {
-	
-	std::vector<double> v(n,0);
-	v.insert(v.begin(), 1);
+    
+    std::vector<double> v(n,0);
+    v.insert(v.begin(), 1);
 
-	for (int i=1; i<=n; i++) {
-		for (int j=1; j<=i; i++) {
-			v[i] += v[i-j]*v[j-1];
-		}
-	}
+    for (int i=1; i<=n; i++) {
+        for (int j=1; j<=i; j++) {
+            v[i] += v[i-j]*v[j-1];
+        }
+    }
 
-	return v[n];
+    // Regresamos ultimo valor del vector
+    return v[n];
 }
 
 int LCS(string a, string b) {
 
-	int Mat[a.length()+1][b.length()+1];
+	int aSize = a.length();
+	int bSize = b.length();
 
-	// First Column
-	for (int i=0; i<a.length(); i++)
+	int Mat[aSize+1][bSize+1];
+
+	for (int i=0; i<=aSize; i++)
 		Mat[i][0] = 0;
 
-	for (int i=0; i<b.length(); i++)
+	for (int i=0; i<=bSize; i++)
 		Mat[0][i] = 0;
 
-	for (int i=1; i<=a.length(); i++) {
+	for (int i=1; i<=aSize; i++) {
 		
-		for (int j=1; i<=b.length(); j++) {
-
-			if (a[i-1] == b[j-1]) 
+		for (int j=1; j<=bSize; j++) {
+			
+			if (a[i-1] == b[j-1])
 				Mat[i][j] = Mat[i-1][j-1]+1;
 
 			else 
@@ -128,7 +132,7 @@ int LCS(string a, string b) {
 		}
 	}
 
-	return Mat[a.length()][b.length()];
+	return Mat[aSize][bSize];
 }
 
 double median(double arr1[], double arr2[], int n) {
