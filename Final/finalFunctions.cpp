@@ -1,0 +1,88 @@
+#include <iostream>
+#include <limits.h>
+
+using namespace std;
+
+#define INF INT_MAX
+#define size = 50;
+
+void audiophobia (int D[size][size], int c) {
+
+	for (int k=0; k<c; k++) {
+		
+		for (int i=0; i<c; i++) {
+			
+			for (int j=0; j<c; j++) {
+				
+				if (D[i][k] != INF && D[k][j] != INF && D[i][j] > max(D[i][k], D[k][j]))
+					D[i][j] = max(D[i][k], D[k][j]);
+			}
+		}
+	}
+}
+
+void cuttingSticks(int ci[], int l , int n) {
+
+	int Mat[size];
+
+	for (int i=1; i<=n; i++) {
+
+		for (int j=i-1; j>=0; j--) {
+
+			if (j+1 == i)
+				Mat[j][i] = 0; 
+
+			else {
+
+				Mat[j][i] = INF;
+
+				for (int k=j+1; k<i; k++) {
+					
+					if (Mat[j][k] + Mat[k][i] < Mat[j][i]) 
+						Mat[j][i] = Mat[j][k] + Mat[k][i];
+
+				}
+			}
+
+			Mat[j][i] += ci[i] - ci[j];
+		}
+	}
+
+	return Mat[0][n];
+}
+
+void rockyThe(int N, vector<int> &Dist, vector<vector<pair<int, int> > > &G) {
+    
+    priority_queue<pair<int, int>, 
+        vector<pair<int, int> >, 
+        greater<pair<int,int> > > Q;    
+
+    Dist.assign(N, INF);
+    Dist[0] = 0;
+    pair<int, int> p(0, 0);
+    Q.push(p);
+    
+    while (!Q.empty()) {
+        
+        int u = Q.top().first;
+        Q.pop();
+
+        for (int i=0; i<G[u].size(); i++) {
+            
+            pair<int, int> p = G[u][i];
+            int v = p.first;
+            int w = p.second; 
+        
+            if (Dist[v] > Dist[u]+w) {
+                Dist[v] = Dist[u]+w;
+                pair<int,int> nvo(v,Dist[v]);
+                Q.push(nvo);
+            }
+        }
+    }    
+}
+
+int main() {
+
+	return 0;
+}
