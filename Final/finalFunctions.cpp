@@ -216,6 +216,83 @@ bool railRoad(int N1, int N2, int train1[], int train2[], int order[]) {
 	return flag[N1][N2];
 }
 
+void delSoldiers(int &rest, int soldiers[200000], int &index, int &alive) {
+	
+	if (alive > 0) {
+		
+		soldiers[index] -= rest;
+
+		if (soldiers[index] < 0) {
+			
+			alive--;
+			rest = abs(soldiers[index]);
+			index++;
+			delSoldiers(rest, soldiers, index, alive);
+		}
+
+		else if (soldiers[index] == 0) {
+			
+			alive--;
+			index++;
+			
+			if (alive > 0) {
+				cout << alive << endl;
+			}
+		}
+		
+		else {
+			cout << alive << endl;
+		}
+	}
+}
+
+int kombat(int n, int k, int damage[], string buttons) {
+
+	int res = 0;
+	int counter = 0;
+	char last = '@';
+	priority_queue<int, vector<int>, greater<int> > hits;
+
+	for (int i=0; i<n; i++) {
+		
+		if (buttons[i] != last) {
+			
+			last = buttons[i];
+			counter = 1;
+			
+			while (!hits.empty()) {
+				res += hits.top();
+				hits.pop();
+			}
+
+			hits.push(damage[i]);
+		}
+
+		else if (counter < k) {
+			
+			hits.push(damage[i]);
+			counter++;
+		}
+
+		else {
+
+			if (hits.top() < damage[i]) {
+				hits.pop();
+				hits.push(damage[i]);
+			}
+			
+			counter++;
+		}
+	}
+	
+	while (!hits.empty()) {
+		res += hits.top();
+		hits.pop();
+	}
+
+	return res;
+}
+
 int main() {
 
 	return 0;
