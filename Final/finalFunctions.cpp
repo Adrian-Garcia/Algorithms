@@ -1,10 +1,19 @@
+/*
+Final Functions
+	
+	Study guide with contain all the codes made at Algorythms subject
+*/
+
 #include <iostream>
 #include <limits.h>
+#include <vector>
+#include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
 #define INF INT_MAX
-#define size = 50;
+#define size 50;
 
 void audiophobia (int D[size][size], int c) {
 
@@ -21,7 +30,7 @@ void audiophobia (int D[size][size], int c) {
 	}
 }
 
-void cuttingSticks(int ci[], int l , int n) {
+int cuttingSticks(int ci[], int l , int n) {
 
 	int Mat[size];
 
@@ -51,7 +60,7 @@ void cuttingSticks(int ci[], int l , int n) {
 	return Mat[0][n];
 }
 
-void rockyThe(int N, vector<int> &Dist, vector<vector<pair<int, int> > > &G) {
+void rockytheBeagle(int N, vector<int> &Dist, vector<vector<pair<int, int> > > &G) {
     
     priority_queue<pair<int, int>, 
         vector<pair<int, int> >, 
@@ -80,6 +89,35 @@ void rockyThe(int N, vector<int> &Dist, vector<vector<pair<int, int> > > &G) {
             }
         }
     }    
+}
+
+double howManyTrees(int n) {
+	
+	std::vector<double> v(n,0);
+	v.insert(v.begin(), 1);
+
+	for (int i=1; i<=n; i++) {
+		for (int j=1; j<=i; i++) {
+			v[i] += v[i-j]*v[j-1];
+		}
+	}
+
+	return v[n];
+}
+
+int LCS(string a, string b) {
+
+	int Mat[a.length()+1][b.length()+1];
+
+	// First Column
+	for (int i=0; i<a.length(); i++)
+		Mat[0][i] = 0;
+
+	for (int i=0; i<b.length(); i++)
+		Mat[0][j] = 0;
+
+		 
+
 }
 
 int main() {
