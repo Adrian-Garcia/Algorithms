@@ -1,0 +1,74 @@
+Notas finales de Algoritmos 
+	
+	Ordenes 
+		O(1)			Constante
+		O(log(n))		Logaritmico
+		O(n)			Lineal
+		O(nlog(n))		n log(n)
+		O(n²) 			Cuadrático
+		O(n³)			Cúbico
+		O(n^m)			Polinomial
+		O(m^n)			Exponencial
+		O(n!)			Factorial
+
+	Ordenes de algorimos
+
+		Fibonacci
+			Iterativo		O(n)
+			Recursivo		O(2^(n/2))
+
+		Búsqueda secuencial
+			Mejor caso 		O(1)
+			Peor caso		O(n)
+
+		Búsqueda binaria
+			Mejor caso 		O(1)
+			Peor caso 		O(log(n))
+
+		Merge Sort
+			Mejor caso  	O(n log(n))
+			Peor caso 		O(n log(n))			
+
+		Quick Sort
+			Mejor caso 		O(n log(n))
+			Peor caso 		O(n²)
+
+		Multiplicacion de matrices
+			Tradicional 	O(n^3)
+			Strassen 		O(n^2.81)	
+
+		Multiplicacion de enteros grandes
+			Mejor 			O(n)
+			Algoritmo 		O(n^1.58)
+			Peor 			O(n²)
+
+		Prim		(Mejor en grafo denso)
+			Comportamiento igual en todos los casos
+			Orden 			O(n²)	
+
+		Kruskal		(Mejor en grafo con pocos arcos)
+			Comportamiento distinto, depende de los arcos
+			Orden 			O(m log2(m))
+
+		Dijkstra
+			Resuelve Floyd a un solo camino
+			Orden 			O(n²)
+
+		Problema de la mochila
+			Voraz 		X	O(nP)	P num de columnas
+			DyC				O(2^n)
+			Backtracking	O(2^n)
+			Horowitz&Sahni	O(2^(n/2))
+
+		Problema del Viajero
+			Dinamico		O(n²*2^n)
+			Branch & Bound 	O(m^n)
+
+		Problema de las N Reinas			
+			Brute Force		O(n^n)
+			Backtracking 	O(n!)	
+
+		Coeficiente binomial 				O(nk)
+		Floyd 								O(n³)
+		Mult Encadenada de Matrices			O(n³)
+		ABB Optimo 							O(n³)
