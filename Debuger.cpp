@@ -1,44 +1,27 @@
-bool railRoad(int N1, int N2, int train1[], int train2[], int order[]) {
+int LCS(string a, string b) {
 
-	bool flag[N1+1][N2+1];
+	aSize = a.length();
+	bSize = b.length();
 
-	flag[0][0] = true;
+	int mat[aSize+1][bSize+1];
 
-	for (int i=1; i<=N1; i++) {
+	for (int i=0; i<=aSize; i++) 
+		mat[i][0] = 0;
 
-		if (flag[i][0]) 
-			flag[i+1][0] = (order[i+1] == train1[i+1]) ?
-				true : false;
+	for (int i=0; i<=bSize; i++)
+		mat[0][i] = 0;
 
-		else 
-			flag[i+1][0] = false;
-	}
-
-	for (int i=1; i<N2; i++) {
-
-		if(flag[0][i]) 
-			flag[0][i-1] = (order[i+1] 	== flag[i+1]) ?
-				true : false;
-
-		else 
-			flag[0][i+1] = false;		
-	}
-
-	for(int i=1; i<=N1; i++) {
+	for (int i=1; i<=aSize; i++) {
 		
-		for(int j=1; j<=N2; j++) {
+		for (int j=1; j<=bSize; j++) {
 
-			if (order[i+j] == train1[i] && flag[i-1][j])
-				flag[i][j] = true;
+			if (a[i-1] == b[j-1]) 
+				mat[i][j] = mat[i-1][j-1]+1;
 
-			else if (order[i+j] == train2[j] && flag[i][j-1]);
-				flag[i][j] = true;
-
-			else 
-				flag[i][j] = false;
-
+			else
+				mat[i][j] = max(mat[i-1][j], mat[i][j-1]);
 		}
 	}
 
-	return flag[N1][N2]
+	return mat[aSize][bSize];
 }
