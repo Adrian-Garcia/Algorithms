@@ -31,7 +31,7 @@ void audiophobia (int D[size][size], int c) {
 	}
 }
 
-int cuttingSticks(int ci[], int l , int n) {
+int cuttingSticks(int ci[], int n) {
 
 	int Matrix[50][50];
 
@@ -48,7 +48,7 @@ int cuttingSticks(int ci[], int l , int n) {
 
 				for (int k=j+1; k<i; k++) {
 
-					if (Matrix[j][k]+Matrix[k][i] < Matrix[j][i])
+					if (Matrix[j][i] > Matrix[j][k]+Matrix[k][i])
 						Matrix[j][i] = Matrix[j][k]+Matrix[k][i];
 				}
 
@@ -174,9 +174,7 @@ double median(double arr1[], double arr2[], int n) {
 
 bool railRoad(int N1, int N2, int train1[], int train2[], int order[]) {
 	
-	bool flag[N1+1][N2+1];					// To validate
-	int i, j;								// Indexes
-
+	bool flag[N1+1][N2+1];
 	flag[0][0] = true;
 
 	for (i=0; i<N1; i++) {
