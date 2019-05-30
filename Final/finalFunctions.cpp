@@ -48,7 +48,7 @@ int cuttingSticks(int ci[], int l , int n) {
 
 				for (int k=j+1; k<i; k++) {
 
-					if (Matrix[j][k]+Matrix[k][i] < Matrix[j][i])
+					if (Matrix[j][i] > Matrix[j][k]+Matrix[k][i])
 						Matrix[j][i] = Matrix[j][k]+Matrix[k][i];
 				}
 
