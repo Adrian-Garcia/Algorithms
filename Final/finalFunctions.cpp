@@ -21,7 +21,7 @@ void audiophobia (int D[size][size], int c) {
 	
 		for (int i=0; i<c; i++) {
 	
-			for (int j=0; j<c; j++) {z
+			for (int j=0; j<c; j++) {
 	
 				if(D[i][k] != INT_MAX && D[k][j] != INT_MAX && D[i][j] > max(D[i][k],D[k][j])){
 					D[i][j] = max(D[i][k],D[k][j]); 
