@@ -205,6 +205,7 @@ int main() {
 		}
 	}
 
+	// Make multiplications by Strassen
 	strassen(n, matA, matB, matC);
 
 	// Display results
@@ -212,6 +213,7 @@ int main() {
 	cout << "Strassen Scalar Multiplications: " << strassenMultiplication-1 << endl;
 	cout << "Strassen Result Matrix:" << endl; 
 	
+	// Display result
 	for (int i=0; i<n; i++) {
 		for (int j=0; j<n; j++) {
 			cout << matD[i][j] << " ";
