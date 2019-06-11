@@ -1,2 +1,2 @@
 # Algorithms
-Activities, homeworks and projects of Algorithms subject
+Activities, homeworks and projects of Algorithms class
